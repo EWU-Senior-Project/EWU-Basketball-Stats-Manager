@@ -8,7 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react';
-import HomeBanner from './components/HomeBanner';
 import HomeNavBar from './components/HomeNavBar';
 import theme from './styles/pallette';
 
@@ -23,7 +22,6 @@ export default function App() {
     <Document>
       <ThemeProvider theme={theme}>
         <HomeNavBar />
-        <HomeBanner />
         <Outlet />
       </ThemeProvider>
     </Document>

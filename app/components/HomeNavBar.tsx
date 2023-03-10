@@ -1,7 +1,8 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
 import { Link } from '@remix-run/react';
+import type { IButton } from '~/interfaces/IButton';
 
-const buttons = [
+const buttons: IButton[] = [
   {
     name: 'My Team',
     to: '/my-team',
@@ -24,7 +25,7 @@ const buttons = [
   },
 ];
 
-const buttonList = buttons.map((button) => (
+const buttonList = buttons.map((button: IButton) => (
   <Link style={{ textDecoration: 'none' }} to={button.to} key={button.name}>
     <Button color="info" key={button.name}>
       {button.name}

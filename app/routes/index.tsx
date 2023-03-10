@@ -1,5 +1,5 @@
 import { redirect } from '@remix-run/node';
 
-export default function Index() {
+export const loader = () => {
   return redirect('/my-team');
-}
+};

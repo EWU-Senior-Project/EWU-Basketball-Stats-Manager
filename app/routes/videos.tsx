@@ -1,5 +1,12 @@
+import HomeBanner from '~/components/HomeBanner';
+
 const Videos = () => {
-  return <div>videos</div>;
+  return (
+    <>
+      <HomeBanner />
+      <div>Videos</div>;
+    </>
+  );
 };
 
 export default Videos;
