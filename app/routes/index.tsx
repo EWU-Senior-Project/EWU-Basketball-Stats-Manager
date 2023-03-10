@@ -1,7 +1,5 @@
-export default function Index() {
-  return (
-    <div
-      style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}
-    ></div>
-  );
-}
+import { redirect } from '@remix-run/node';
+
+export const loader = () => {
+  return redirect('/my-team');
+};
