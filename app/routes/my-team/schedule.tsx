@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import AllGamesTable from '~/components/Tables/AllGamesTable';
-import AwayTable from '~/components/Tables/AwayTable';
-import ConferenceTable from '~/components/Tables/ConferenceTable';
-import HomeTable from '~/components/Tables/HomeTable';
-import Last5Table from '~/components/Tables/Last5Table';
+import AwayGamesTable from '~/components/Tables/AwayGamesTable';
+import ConferenceGamesTable from '~/components/Tables/ConferenceGamesTable';
+import HomeGamesTable from '~/components/Tables/HomeGamesTable';
+import Last5GamesTable from '~/components/Tables/Last5GamesTable';
 import LossesTable from '~/components/Tables/LossesTable';
 import WinsTable from '~/components/Tables/WinsTable';
 
@@ -25,17 +25,17 @@ const Schedule = () => {
       case 0:
         return <AllGamesTable title />;
       case 1:
-        return <ConferenceTable title />;
+        return <ConferenceGamesTable title />;
       case 2:
-        return <Last5Table title />;
+        return <Last5GamesTable title />;
       case 3:
         return <WinsTable title />;
       case 4:
         return <LossesTable title />;
       case 5:
-        return <HomeTable title />;
+        return <HomeGamesTable title />;
       case 6:
-        return <AwayTable title />;
+        return <AwayGamesTable title />;
     }
   };
 

@@ -14,12 +14,12 @@ type IProps = {
   title?: boolean;
 };
 
-const HomeTable = ({ title }: IProps) => {
+const ConferenceGamesTable = ({ title }: IProps) => {
   return (
     <>
       {title && (
         <Typography variant="h5" sx={{ paddingBottom: '.5em' }}>
-          Home
+          Conference
         </Typography>
       )}
       <TableContainer component={Paper}>
@@ -44,7 +44,7 @@ const HomeTable = ({ title }: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {homeRows.map((row) => (
+            {conferenceRows.map((row) => (
               <TableRow key={row.date}>
                 <TableCell>
                   <strong>{row.date}</strong>
@@ -62,9 +62,9 @@ const HomeTable = ({ title }: IProps) => {
   );
 };
 
-export default HomeTable;
+export default ConferenceGamesTable;
 
-function createHomeData(
+function createData(
   date: string,
   opponent: string,
   location: string,
@@ -74,14 +74,6 @@ function createHomeData(
   return { date, opponent, location, result, video };
 }
 
-const homeRows = [
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createHomeData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-];
+const conferenceRows = Array.from({ length: 30 }, () =>
+  createData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]')
+);

@@ -14,7 +14,7 @@ type IProps = {
   title?: boolean;
 };
 
-const Last5Table = ({ title }: IProps) => {
+const Last5GamesTable = ({ title }: IProps) => {
   return (
     <>
       {title && (
@@ -62,9 +62,9 @@ const Last5Table = ({ title }: IProps) => {
   );
 };
 
-export default Last5Table;
+export default Last5GamesTable;
 
-function createLast5Data(
+function createData(
   date: string,
   opponent: string,
   location: string,
@@ -74,9 +74,6 @@ function createLast5Data(
   return { date, opponent, location, result, video };
 }
 
-const last5Rows = [
-  createLast5Data('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createLast5Data('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createLast5Data('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createLast5Data('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-];
+const last5Rows = Array.from({ length: 5 }, () =>
+  createData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]')
+);
