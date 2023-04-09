@@ -14,12 +14,12 @@ type IProps = {
   title?: boolean;
 };
 
-const LossesTable = ({ title }: IProps) => {
+const HomeGamesTable = ({ title }: IProps) => {
   return (
     <>
       {title && (
         <Typography variant="h5" sx={{ paddingBottom: '.5em' }}>
-          Losses
+          Home
         </Typography>
       )}
       <TableContainer component={Paper}>
@@ -44,7 +44,7 @@ const LossesTable = ({ title }: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {last5Rows.map((row) => (
+            {homeRows.map((row) => (
               <TableRow key={row.date}>
                 <TableCell>
                   <strong>{row.date}</strong>
@@ -62,7 +62,7 @@ const LossesTable = ({ title }: IProps) => {
   );
 };
 
-export default LossesTable;
+export default HomeGamesTable;
 
 function createData(
   date: string,
@@ -74,6 +74,6 @@ function createData(
   return { date, opponent, location, result, video };
 }
 
-const last5Rows = Array.from({ length: 1 }, () =>
+const homeRows = Array.from({ length: 40 }, () =>
   createData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]')
 );

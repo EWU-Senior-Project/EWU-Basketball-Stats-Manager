@@ -8,6 +8,18 @@ const colors = {
 
 const theme = createTheme({
   components: {
+    MuiTab: {
+      variants: [
+        {
+          props: {},
+          style: {
+            fontFamily: 'Tilt Warp',
+            fontSize: '16px',
+            color: colors.red,
+          },
+        },
+      ],
+    },
     MuiButton: {
       variants: [
         {

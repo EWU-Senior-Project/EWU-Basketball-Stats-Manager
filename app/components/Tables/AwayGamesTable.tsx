@@ -14,7 +14,7 @@ type IProps = {
   title?: boolean;
 };
 
-const AwayTable = ({ title }: IProps) => {
+const AwayGamesTable = ({ title }: IProps) => {
   return (
     <>
       <div>
@@ -64,9 +64,9 @@ const AwayTable = ({ title }: IProps) => {
   );
 };
 
-export default AwayTable;
+export default AwayGamesTable;
 
-function createAwayData(
+function createData(
   date: string,
   opponent: string,
   location: string,
@@ -76,32 +76,6 @@ function createAwayData(
   return { date, opponent, location, result, video };
 }
 
-const awayRows = [
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createAwayData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-];
+const awayRows = Array.from({ length: 20 }, () =>
+  createData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]')
+);

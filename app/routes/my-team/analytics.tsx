@@ -1,171 +1,147 @@
 import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
+  AppBar,
+  FormControl,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  Tab,
+  Tabs,
 } from '@mui/material';
-import theme from '~/styles/pallette';
-
-function createFSData(
-  stat: string,
-  off: number,
-  def: number,
-  bsa: number,
-  dia: number
-) {
-  return { stat, off, def, bsa, dia };
-}
-
-const fsRows = [
-  createFSData('eFG%', 0, 0, 0, 0),
-  createFSData('TS%', 0, 0, 0, 0),
-  createFSData('TO%', 0, 0, 0, 0),
-  createFSData('AST%', 0, 0, 0, 0),
-  createFSData('REB%', 0, 0, 0, 0),
-  createFSData('FT-R', 0, 0, 0, 0),
-  createFSData('FT%', 0, 0, 0, 0),
-];
-
-function createLSData(
-  player: string,
-  gp: number,
-  min: number,
-  ortg: number,
-  drtg: number,
-  nrtg: number,
-  efg: number,
-  ts: number,
-  orb: number,
-  drb: number,
-  to: number
-) {
-  return { player, gp, min, ortg, drtg, nrtg, efg, ts, orb, drb, to };
-}
-
-const lsRows = [
-  createLSData('Joe Smith', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  createLSData('Joe Smith', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  createLSData('Joe Smith', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  createLSData('Joe Smith', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  createLSData('Joe Smith', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  createLSData('Obama', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  createLSData('Joe Smith', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-  createLSData('Joe Smith', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-];
+import { useState } from 'react';
+import BallControlTable from '~/components/Tables/BallControlTable';
+import BoxScoreTable from '~/components/Tables/BoxScoreTable';
+import DefenseTable from '~/components/Tables/DefenseTable';
+import FastScoutFactorsTable from '~/components/Tables/FastScoutFactorsTable';
+import FreeThrowShootersTable from '~/components/Tables/FreeThrowShootersTable';
+import LineUpStatsTable from '~/components/Tables/LineUpStatsTable';
+import PointsPerPeriodTable from '~/components/Tables/PointsPerPeriodTable';
+import PossessionsPerGame from '~/components/Tables/PossessionsPerGame';
+import ReboundersTable from '~/components/Tables/ReboundersTable';
+import TeamStatsTable from '~/components/Tables/TeamStatsTable';
+import ThreePointShootersTable from '~/components/Tables/ThreePointShootersTable';
+import TopScorersTable from '~/components/Tables/TopScorersTable';
 
 const Analytics = () => {
+  const [value, setValue] = useState(0);
+
   return (
-    <div style={{ padding: '2em' }}>
-      <Typography variant="h5" sx={{ paddingBottom: '.5em' }}>
-        FASTSCOUT FACTORS
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }}>
-          <TableHead sx={{ background: theme.palette.secondary.light }}>
-            <TableRow>
-              <TableCell align="left">
-                <Typography color="text.secondary">STATS</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">EWU OFF</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">EWU DEF</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">BIG SKY AVG</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">D-I AVG</Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {fsRows.map((row) => (
-              <TableRow key={row.stat}>
-                <TableCell>
-                  <strong>{row.stat}</strong>
-                </TableCell>
-                <TableCell align="right">{row.off}</TableCell>
-                <TableCell align="right">{row.def}</TableCell>
-                <TableCell align="right">{row.bsa}</TableCell>
-                <TableCell align="right">{row.dia}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Typography
-        variant="h5"
-        sx={{ paddingTop: '2em', paddingBottom: '.5em' }}
+    <>
+      <AppBar
+        position="relative"
+        color="transparent"
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
       >
-        LINEUP STATS
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }}>
-          <TableHead sx={{ background: theme.palette.secondary.light }}>
-            <TableRow>
-              <TableCell align="left">
-                <Typography color="text.secondary">Player</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">GP</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">MIN</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">ORTG</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">DRTG</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">NRTG</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">EFG%</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">TS%</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">ORB%</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">DRB%</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">TO%</Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {lsRows.map((row) => (
-              <TableRow key={row.player}>
-                <TableCell>
-                  <strong>{row.player}</strong>
-                </TableCell>
-                <TableCell align="right">{row.gp}</TableCell>
-                <TableCell align="right">{row.min}</TableCell>
-                <TableCell align="right">{row.ortg}</TableCell>
-                <TableCell align="right">{row.drtg}</TableCell>
-                <TableCell align="right">{row.nrtg}</TableCell>
-                <TableCell align="right">{row.efg}</TableCell>
-                <TableCell align="right">{row.ts}</TableCell>
-                <TableCell align="right">{row.orb}</TableCell>
-                <TableCell align="right">{row.drb}</TableCell>
-                <TableCell align="right">{row.to}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+        <Tabs
+          value={value}
+          onChange={(e, newValue: number) => setValue(newValue)}
+        >
+          <Tab label="Dashboard" value={0} />
+          <Tab label="Team Stats" value={1} />
+        </Tabs>
+        <div>
+          <FormControl
+            sx={{ m: 1, minWidth: 180, '&>div': { height: '32px' } }}
+          >
+            <Select
+              input={<OutlinedInput />}
+              defaultValue={0}
+              // onChange={(e) => setYear(e.target.value)}
+            >
+              <MenuItem value={0}>All Games</MenuItem>
+              <MenuItem value={1}>Last 5</MenuItem>
+              <MenuItem value={2}>Wins vs Losses</MenuItem>
+              <MenuItem value={3}>Home vs Away</MenuItem>
+              <MenuItem value={4}>Conf vs Non Conf</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
+            sx={{ m: 1, minWidth: 120, '&>div': { height: '32px' } }}
+          >
+            <Select
+              input={<OutlinedInput />}
+              defaultValue={0}
+              // onChange={(e) => setYear(e.target.value)}
+            >
+              <MenuItem value={0}>2022-2023</MenuItem>
+              <MenuItem value={1}>2021-2022</MenuItem>
+              <MenuItem value={2}>2020-2021</MenuItem>
+              <MenuItem value={3}>2019-2020</MenuItem>
+              <MenuItem value={4}>2018-2019</MenuItem>
+              <MenuItem value={5}>2017-2018</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+      </AppBar>
+      <div style={{ padding: '2em' }}>
+        {value === 0 ? <Dashboard /> : <TeamStats />}
+      </div>
+    </>
+  );
+};
+
+const Dashboard = () => {
+  return (
+    <>
+      <FastScoutFactorsTable title={true} />
+      <LineUpStatsTable title={true} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          columnGap: '2em',
+        }}
+      >
+        <PointsPerPeriodTable title={true} />
+        <PossessionsPerGame title={true} />
+      </div>
+      <BoxScoreTable title={true} />
+    </>
+  );
+};
+
+const TeamStats = () => {
+  return (
+    <>
+      <TeamStatsTable title={true} />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          columnGap: '2em',
+        }}
+      >
+        <TopScorersTable title={true} />
+        <ThreePointShootersTable title={true} />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          columnGap: '2em',
+        }}
+      >
+        <FreeThrowShootersTable title={true} />
+        <ReboundersTable title={true} />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          columnGap: '2em',
+        }}
+      >
+        <BallControlTable title={true} />
+        <DefenseTable title={true} />
+      </div>
+    </>
   );
 };
 
