@@ -20,7 +20,7 @@ const TopScorersTable = ({ title }: IProps) => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        flexGrow: 1,
+        flex: '1 1 0',
       }}
     >
       {title && (
