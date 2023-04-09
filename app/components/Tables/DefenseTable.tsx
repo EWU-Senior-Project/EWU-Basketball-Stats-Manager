@@ -16,7 +16,7 @@ type IProps = {
 
 const DefenseTable = ({ title }: IProps) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0' }}>
       {title && (
         <Typography
           variant="h5"
