@@ -1,4 +1,12 @@
-import { AppBar, Tab, Tabs } from '@mui/material';
+import {
+  AppBar,
+  FormControl,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  Tab,
+  Tabs,
+} from '@mui/material';
 import { useState } from 'react';
 import BallControlTable from '~/components/Tables/BallControlTable';
 import BoxScoreTable from '~/components/Tables/BoxScoreTable';
@@ -18,7 +26,15 @@ const Analytics = () => {
 
   return (
     <>
-      <AppBar position="relative" color="transparent">
+      <AppBar
+        position="relative"
+        color="transparent"
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
         <Tabs
           value={value}
           onChange={(e, newValue: number) => setValue(newValue)}
@@ -26,6 +42,39 @@ const Analytics = () => {
           <Tab label="Dashboard" value={0} />
           <Tab label="Team Stats" value={1} />
         </Tabs>
+        <div>
+          <FormControl
+            sx={{ m: 1, minWidth: 120, '&>div': { height: '32px' } }}
+          >
+            <Select
+              input={<OutlinedInput />}
+              defaultValue={0}
+              // onChange={(e) => setYear(e.target.value)}
+            >
+              <MenuItem value={0}>2022-2023</MenuItem>
+              <MenuItem value={1}>2021-2022</MenuItem>
+              <MenuItem value={2}>2020-2021</MenuItem>
+              <MenuItem value={3}>2019-2020</MenuItem>
+              <MenuItem value={4}>2018-2019</MenuItem>
+              <MenuItem value={5}>2017-2018</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
+            sx={{ m: 1, minWidth: 180, '&>div': { height: '32px' } }}
+          >
+            <Select
+              input={<OutlinedInput />}
+              defaultValue={0}
+              // onChange={(e) => setYear(e.target.value)}
+            >
+              <MenuItem value={0}>All Games</MenuItem>
+              <MenuItem value={1}>Last 5</MenuItem>
+              <MenuItem value={2}>Wins vs Losses</MenuItem>
+              <MenuItem value={3}>Home vs Away</MenuItem>
+              <MenuItem value={4}>Conf vs Non Conf</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       </AppBar>
       <div style={{ padding: '2em' }}>
         {value === 0 ? <Dashboard /> : <TeamStats />}
