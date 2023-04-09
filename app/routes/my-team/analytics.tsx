@@ -16,10 +16,10 @@ import FreeThrowShootersTable from '~/components/Tables/FreeThrowShootersTable';
 import LineUpStatsTable from '~/components/Tables/LineUpStatsTable';
 import PointsPerPeriodTable from '~/components/Tables/PointsPerPeriodTable';
 import PossessionsPerGame from '~/components/Tables/PossessionsPerGame';
-import ReboundersTable from '~/components/Tables/ReboundersTable';
 import TeamStatsTable from '~/components/Tables/TeamStatsTable';
 import ThreePointShootersTable from '~/components/Tables/ThreePointShootersTable';
 import TopScorersTable from '~/components/Tables/TopScorersTable';
+import TopReboundersTable from '~/components/Tables/TopReboundersTable';
 
 const Analytics = () => {
   const [value, setValue] = useState(0);
@@ -128,7 +128,7 @@ const TeamStats = () => {
         }}
       >
         <FreeThrowShootersTable title={true} />
-        <ReboundersTable title={true} />
+        <TopReboundersTable title={true} />
       </div>
       <div
         style={{

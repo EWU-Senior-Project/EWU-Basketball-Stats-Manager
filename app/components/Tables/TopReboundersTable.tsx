@@ -14,9 +14,9 @@ type IProps = {
   title: boolean;
 };
 
-const ReboundersTable = ({ title }: IProps) => {
+const TopReboundersTable = ({ title }: IProps) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', flex: '1 1 0' }}>
       {title && (
         <Typography
           variant="h5"
@@ -47,7 +47,7 @@ const ReboundersTable = ({ title }: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {reboundersRows.map((row) => (
+            {topReboundersRows.map((row) => (
               <TableRow key={row.jerseyNumber}>
                 <TableCell>{row.jerseyNumber}</TableCell>
                 <TableCell align="right">{row.player}</TableCell>
@@ -63,7 +63,7 @@ const ReboundersTable = ({ title }: IProps) => {
   );
 };
 
-export default ReboundersTable;
+export default TopReboundersTable;
 
 function createData(
   jerseyNumber: number,
@@ -81,6 +81,6 @@ function createData(
   };
 }
 
-const reboundersRows = Array.from({ length: 5 }, () =>
+const topReboundersRows = Array.from({ length: 5 }, () =>
   createData(2, 'Russel Westbrick', 0, 0, 0)
 );
