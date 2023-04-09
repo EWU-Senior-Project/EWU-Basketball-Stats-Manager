@@ -44,6 +44,21 @@ const Analytics = () => {
         </Tabs>
         <div>
           <FormControl
+            sx={{ m: 1, minWidth: 180, '&>div': { height: '32px' } }}
+          >
+            <Select
+              input={<OutlinedInput />}
+              defaultValue={0}
+              // onChange={(e) => setYear(e.target.value)}
+            >
+              <MenuItem value={0}>All Games</MenuItem>
+              <MenuItem value={1}>Last 5</MenuItem>
+              <MenuItem value={2}>Wins vs Losses</MenuItem>
+              <MenuItem value={3}>Home vs Away</MenuItem>
+              <MenuItem value={4}>Conf vs Non Conf</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl
             sx={{ m: 1, minWidth: 120, '&>div': { height: '32px' } }}
           >
             <Select
@@ -57,21 +72,6 @@ const Analytics = () => {
               <MenuItem value={3}>2019-2020</MenuItem>
               <MenuItem value={4}>2018-2019</MenuItem>
               <MenuItem value={5}>2017-2018</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl
-            sx={{ m: 1, minWidth: 180, '&>div': { height: '32px' } }}
-          >
-            <Select
-              input={<OutlinedInput />}
-              defaultValue={0}
-              // onChange={(e) => setYear(e.target.value)}
-            >
-              <MenuItem value={0}>All Games</MenuItem>
-              <MenuItem value={1}>Last 5</MenuItem>
-              <MenuItem value={2}>Wins vs Losses</MenuItem>
-              <MenuItem value={3}>Home vs Away</MenuItem>
-              <MenuItem value={4}>Conf vs Non Conf</MenuItem>
             </Select>
           </FormControl>
         </div>

@@ -44,8 +44,24 @@ const Schedule = () => {
       <AppBar
         position="relative"
         color="transparent"
-        sx={{ display: 'flex', flexDirection: 'row' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
       >
+        <Tabs
+          value={value}
+          onChange={(_, newValue: number) => setValue(newValue)}
+        >
+          <Tab label="All Games" value={0} />
+          <Tab label="Conference" value={1} />
+          <Tab label="Last 5" value={2} />
+          <Tab label="Wins" value={3} />
+          <Tab label="Losses" value={4} />
+          <Tab label="Home" value={5} />
+          <Tab label="Away" value={6} />
+        </Tabs>
         <FormControl sx={{ m: 1, minWidth: 120, '&>div': { height: '32px' } }}>
           <Select
             input={<OutlinedInput />}
@@ -60,18 +76,6 @@ const Schedule = () => {
             <MenuItem value={5}>2017-2018</MenuItem>
           </Select>
         </FormControl>
-        <Tabs
-          value={value}
-          onChange={(_, newValue: number) => setValue(newValue)}
-        >
-          <Tab label="All Games" value={0} />
-          <Tab label="Conference" value={1} />
-          <Tab label="Last 5" value={2} />
-          <Tab label="Wins" value={3} />
-          <Tab label="Losses" value={4} />
-          <Tab label="Home" value={5} />
-          <Tab label="Away" value={6} />
-        </Tabs>
       </AppBar>
       <div style={{ padding: '2em' }}>{currentTab()}</div>
     </>
