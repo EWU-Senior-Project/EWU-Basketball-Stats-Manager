@@ -1,27 +1,29 @@
-// See https://containers.dev/implementors/json_reference/ for configuration reference
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet-postgres
 {
-  "name": "EWU-Basketball-Stats-Manager",
-  "build": {
-    "dockerfile": "../Dockerfile"
-  },
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-vscode-remote.remote-containers",
-        "esbenp.prettier-vscode",
-        "streetsidesoftware.code-spell-checker",
-        "dbaeumer.vscode-eslint",
-        "ms-dotnettools.csharp"
-      ]
-    }
-  },
-  "overrideCommand": false,
-  "remoteUser": "root",
-  "containerEnv": { "SSH_AUTH_SOCK": "/ssh-agent" },
-  "mounts": ["source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind"],
-  "postCreateCommand": "npm install",
-  "forwardPorts": [3000, 3000]
+    "name": "EWU-Basketball-Stats-Manager",
+    "dockerComposeFile": "docker-compose.yml",
+	"remoteUser": "vscode",
+    "service": "app",
+	"workspaceFolder": "/workspace",
+	"forwardPorts": [
+		3000
+	],
+	"portsAttributes": {
+		"3000": {
+			"protocol": "http",
+			"label":"Application"
+		}
+	},
+	"customizations": {
+		"vscode": {
+		  	"extensions": [
+				"ms-vscode-remote.remote-containers",
+				"esbenp.prettier-vscode",
+				"streetsidesoftware.code-spell-checker",
+				"dbaeumer.vscode-eslint",
+				"ms-dotnettools.csharp"
+			]
+		}
+	}
 }
