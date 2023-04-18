@@ -1,134 +1,84 @@
 import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
+  AppBar,
+  FormControl,
+  MenuItem,
+  OutlinedInput,
+  Select,
+  Tab,
+  Tabs,
 } from '@mui/material';
-import theme from '~/styles/pallette';
-
-function createScheduleData(
-  date: string,
-  opponent: string,
-  location: string,
-  result: string,
-  video: any
-) {
-  return { date, opponent, location, result, video };
-}
-
-const scheduleRows = [
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-  createScheduleData('00/00/0000', 'Gonzaga', 'Spokane', 'W', '[]'),
-];
+import { useState } from 'react';
+import AllGamesTable from '~/components/Tables/AllGamesTable';
+import AwayGamesTable from '~/components/Tables/AwayGamesTable';
+import ConferenceGamesTable from '~/components/Tables/ConferenceGamesTable';
+import HomeGamesTable from '~/components/Tables/HomeGamesTable';
+import Last5GamesTable from '~/components/Tables/Last5GamesTable';
+import LossesTable from '~/components/Tables/LossesTable';
+import WinsTable from '~/components/Tables/WinsTable';
 
 const Schedule = () => {
+  const [value, setValue] = useState(0);
+  // const [year, setYear] = useState('');
+
+  const currentTab = () => {
+    switch (value) {
+      case 0:
+        return <AllGamesTable title />;
+      case 1:
+        return <ConferenceGamesTable title />;
+      case 2:
+        return <Last5GamesTable title />;
+      case 3:
+        return <WinsTable title />;
+      case 4:
+        return <LossesTable title />;
+      case 5:
+        return <HomeGamesTable title />;
+      case 6:
+        return <AwayGamesTable title />;
+    }
+  };
+
   return (
-    <div style={{ padding: '2em' }}>
-      <Typography variant="h5" sx={{ paddingBottom: '.5em' }}>
-        SCHEDULE
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }}>
-          <TableHead sx={{ background: theme.palette.secondary.light }}>
-            <TableRow>
-              <TableCell align="left">
-                <Typography color="text.secondary">Date</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">Opponent</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">Location</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">Result</Typography>
-              </TableCell>
-              <TableCell align="right">
-                <Typography color="text.secondary">Video</Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {scheduleRows.map((row) => (
-              <TableRow key={row.date}>
-                <TableCell>
-                  <strong>{row.date}</strong>
-                </TableCell>
-                <TableCell align="right">{row.opponent}</TableCell>
-                <TableCell align="right">{row.location}</TableCell>
-                <TableCell align="right">{row.result}</TableCell>
-                <TableCell align="right">{row.video}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+    <>
+      <AppBar
+        position="relative"
+        color="transparent"
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Tabs
+          value={value}
+          onChange={(_, newValue: number) => setValue(newValue)}
+        >
+          <Tab label="All Games" value={0} />
+          <Tab label="Conference" value={1} />
+          <Tab label="Last 5" value={2} />
+          <Tab label="Wins" value={3} />
+          <Tab label="Losses" value={4} />
+          <Tab label="Home" value={5} />
+          <Tab label="Away" value={6} />
+        </Tabs>
+        <FormControl sx={{ m: 1, minWidth: 120, '&>div': { height: '32px' } }}>
+          <Select
+            input={<OutlinedInput />}
+            defaultValue={0}
+            // onChange={(e) => setYear(e.target.value)}
+          >
+            <MenuItem value={0}>2022-2023</MenuItem>
+            <MenuItem value={1}>2021-2022</MenuItem>
+            <MenuItem value={2}>2020-2021</MenuItem>
+            <MenuItem value={3}>2019-2020</MenuItem>
+            <MenuItem value={4}>2018-2019</MenuItem>
+            <MenuItem value={5}>2017-2018</MenuItem>
+          </Select>
+        </FormControl>
+      </AppBar>
+      <div style={{ padding: '2em' }}>{currentTab()}</div>
+    </>
   );
 };
 

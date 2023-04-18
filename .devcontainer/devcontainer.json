@@ -1,11 +1,18 @@
-// See https://containers.dev/implementors/json_reference/ for configuration reference
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet-postgres
 {
   "name": "EWU-Basketball-Stats-Manager",
-  "build": {
-    "dockerfile": "../Dockerfile"
-  },
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
+  "dockerComposeFile": "docker-compose.yml",
+  "remoteUser": "vscode",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "mounts": ["source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind"],
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "protocol": "http",
+      "label": "Application"
+    }
   },
   "customizations": {
     "vscode": {
@@ -17,11 +24,5 @@
         "ms-dotnettools.csharp"
       ]
     }
-  },
-  "overrideCommand": false,
-  "remoteUser": "root",
-  "containerEnv": { "SSH_AUTH_SOCK": "/ssh-agent" },
-  "mounts": ["source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind"],
-  "postCreateCommand": "npm install",
-  "forwardPorts": [3000, 3000]
+  }
 }

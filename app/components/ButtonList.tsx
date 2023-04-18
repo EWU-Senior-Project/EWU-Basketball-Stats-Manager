@@ -1,11 +1,13 @@
 import { Button } from '@mui/material';
-import { Link } from '@remix-run/react';
+import { Link, useMatches } from '@remix-run/react';
 import { useState } from 'react';
 import type { IButton } from '~/interfaces/IButton';
 
 const ButtonList = (props: { buttons: IButton[] }) => {
   const { buttons } = props;
-  const [selected, setSelected] = useState(buttons[0].name);
+  const matches = useMatches();
+  const [selected, setSelected] = useState(matches[2].pathname.split('/')[2]);
+
   return (
     <>
       {buttons.map((button) => (
@@ -16,10 +18,10 @@ const ButtonList = (props: { buttons: IButton[] }) => {
         >
           <Button
             sx={{ padding: '0em .5em' }}
-            onClick={() => setSelected(button.name)}
+            onClick={() => setSelected(button.to)}
             color="info"
             key={button.name}
-            variant={selected === button.name ? 'contained' : void 0}
+            variant={selected === button.to ? 'contained' : void 0}
           >
             {button.name}
           </Button>
