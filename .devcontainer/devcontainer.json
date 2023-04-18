@@ -3,6 +3,7 @@
 {
   "name": "EWU-Basketball-Stats-Manager",
   "dockerComposeFile": "docker-compose.yml",
+  "postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
   "remoteUser": "vscode",
   "service": "app",
   "workspaceFolder": "/workspace",
@@ -21,7 +22,8 @@
         "esbenp.prettier-vscode",
         "streetsidesoftware.code-spell-checker",
         "dbaeumer.vscode-eslint",
-        "ms-dotnettools.csharp"
+        "ms-dotnettools.csharp",
+        "ms-azuretools.vscode-docker"
       ]
     }
   }
