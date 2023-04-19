@@ -6,7 +6,7 @@
     "dev": "remix dev",
     "start": "remix-serve build",
     "typecheck": "tsc",
-    "lint":"eslint app"
+    "lint": "eslint client/app"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -35,6 +35,9 @@
     "node": ">=14"
   },
   "eslintConfig": {
-    "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"]
+    "extends": [
+      "@remix-run/eslint-config",
+      "@remix-run/eslint-config/node"
+    ]
   }
 }
