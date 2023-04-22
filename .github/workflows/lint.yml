@@ -26,9 +26,6 @@ jobs: # list of things to do
       - name: Code Checkout
         uses: actions/checkout@v2
 
-      - name: Change to Client Directory
-        run: cd ~/workspace/client
-
       - name: Install Dependencies
         run: yarn install --immutable
 
