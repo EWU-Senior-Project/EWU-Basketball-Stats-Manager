@@ -27,7 +27,7 @@ jobs: # list of things to do
         uses: actions/checkout@v2
 
       - name: Install Dependencies
-        run: yarn install --immutable
+        run: cd client && yarn install --immutable
 
       - name: Code Linting
-        run: ls && yarn lint
+        run: yarn lint
