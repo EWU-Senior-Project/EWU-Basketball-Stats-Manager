@@ -30,4 +30,4 @@ jobs: # list of things to do
         run: yarn install --immutable
 
       - name: Code Linting
-        run: yarn lint
+        run: cd client && yarn lint
