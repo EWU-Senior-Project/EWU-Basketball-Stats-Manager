@@ -47,6 +47,7 @@ const OpponentScoutsTable = () => {
             {scoutingReports.map((row) => (
               <TableRow key={row.scout}>
                 <TableCell align="center">{row.logo}</TableCell>
+
                 <TableCell align="center">{row.scout}</TableCell>
                 <TableCell align="center">{row.season}</TableCell>
                 <TableCell align="center">{row.team}</TableCell>
