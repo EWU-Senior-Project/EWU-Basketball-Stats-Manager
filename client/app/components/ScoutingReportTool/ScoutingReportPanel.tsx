@@ -1,4 +1,12 @@
-import { Menu, AcUnit } from '@mui/icons-material';
+import {
+  Menu,
+  AcUnit,
+  Image,
+  GridOn,
+  Person,
+  BarChart,
+  Apps,
+} from '@mui/icons-material';
 import type { CSSObject, Theme } from '@mui/material';
 import {
   Drawer,
@@ -120,19 +128,19 @@ const listItems: IListItem[] = [
   },
   {
     title: 'Image',
-    icon: <AcUnit fontSize="small" />,
+    icon: <Image fontSize="small" />,
   },
   {
     title: 'Team Stats',
-    icon: <AcUnit fontSize="small" />,
+    icon: <GridOn fontSize="small" />,
   },
   {
     title: 'Personnel',
-    icon: <AcUnit fontSize="small" />,
+    icon: <Person fontSize="small" />,
   },
   {
     title: 'Leaders',
-    icon: <AcUnit fontSize="small" />,
+    icon: <BarChart fontSize="small" />,
   },
   {
     title: 'Recent Games',
@@ -144,7 +152,7 @@ const listItems: IListItem[] = [
   },
   {
     title: 'Custom Table',
-    icon: <AcUnit fontSize="small" />,
+    icon: <Apps fontSize="small" />,
   },
   {
     title: 'Team Advanced Stats',
@@ -155,8 +163,8 @@ const listItems: IListItem[] = [
     icon: <AcUnit fontSize="small" />,
   },
   {
-    title: 'Line Stats',
-    icon: <AcUnit fontSize="small" />,
+    title: 'Lineup Stats',
+    icon: <GridOn fontSize="small" />,
   },
   {
     title: 'Shot Charts',
