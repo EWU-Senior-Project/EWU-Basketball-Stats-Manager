@@ -17,9 +17,6 @@ const OpponentScouts = () => {
           alignItems: 'center',
         }}
       >
-        <Link style={{ textDecoration: 'none' }} to="/create-scouting-report">
-          <Button>Scouting Report Tool</Button>
-        </Link>
         <CreateScoutingReportDialog />
       </AppBar>
       <div style={{ padding: '2em' }}>
