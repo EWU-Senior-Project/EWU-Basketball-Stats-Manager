@@ -8,7 +8,6 @@ const ScoutingReportEditor = () => {
         flexGrow: 1,
         maxWidth: '1000px',
         height: '1000px',
-        margin: '50px',
         padding: '50px',
         justifyContent: 'center',
       }}
