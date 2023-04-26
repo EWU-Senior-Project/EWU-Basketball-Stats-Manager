@@ -4,6 +4,7 @@ const colors = {
   black: '#000000',
   white: '#ffffff',
   red: '#b7142e',
+  grey: '#bdbdbd',
 };
 
 const theme = createTheme({
@@ -16,6 +17,16 @@ const theme = createTheme({
             fontFamily: 'Tilt Warp',
             fontSize: '16px',
             color: colors.red,
+          },
+        },
+      ],
+    },
+    MuiRadio: {
+      variants: [
+        {
+          props: {},
+          style: {
+            color: colors.grey,
           },
         },
       ],
