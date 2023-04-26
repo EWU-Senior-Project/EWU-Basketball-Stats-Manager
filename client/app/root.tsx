@@ -34,7 +34,7 @@ interface Props {
 
 function Document({ children }: Props) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ height: '100%' }}>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap"
@@ -43,7 +43,7 @@ function Document({ children }: Props) {
         <Meta />
         <Links />
       </head>
-      <body style={{ margin: '0px' }}>
+      <body style={{ margin: '0px', height: '100%' }}>
         {children}
         <ScrollRestoration />
         <Scripts />

@@ -7,7 +7,10 @@ import {
   TableCell,
   Typography,
   TableBody,
+  Button,
 } from '@mui/material';
+import { Link } from '@remix-run/react';
+
 import theme from '~/styles/pallette';
 
 const OpponentScoutsTable = () => {
@@ -41,12 +44,16 @@ const OpponentScoutsTable = () => {
               <TableCell align="center">
                 <Typography color="text.secondary">Status</Typography>
               </TableCell>
+              <TableCell align="center">
+                <Typography color="text.secondary"></Typography>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {scoutingReports.map((row) => (
               <TableRow key={row.scout}>
                 <TableCell align="center">{row.logo}</TableCell>
+
                 <TableCell align="center">{row.scout}</TableCell>
                 <TableCell align="center">{row.season}</TableCell>
                 <TableCell align="center">{row.team}</TableCell>
@@ -54,6 +61,12 @@ const OpponentScoutsTable = () => {
                 <TableCell align="center">{row.preparedBy}</TableCell>
                 <TableCell align="center">{row.lastModified}</TableCell>
                 <TableCell align="center">{row.status}</TableCell>
+
+                <TableCell align="center">
+                  <Link to="/create-scouting-report">
+                    <Button>Open</Button>
+                  </Link>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
