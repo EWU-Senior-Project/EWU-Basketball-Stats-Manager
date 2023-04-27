@@ -28,3 +28,11 @@
 - ### Navigate to cloned repo and enter `code .` to open the repo in vsCode using remote connection.
 
 - ### Remote into devContainer <small>(using green box in the bottom left)<small>
+
+## Contributing
+
+### Conventional Commits
+
+This repository uses `conventional commits` to ensure that the commit log is readable, and follows industry best practices.
+
+https://www.conventionalcommits.org/en/v1.0.0/
