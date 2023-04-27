@@ -13,7 +13,6 @@ const CreateScoutingReportDialog = () => {
 
   return (
     <>
-      {/* asdf */}
       <Button
         variant="contained"
         style={{ height: '32px', marginRight: '2.2em' }}
