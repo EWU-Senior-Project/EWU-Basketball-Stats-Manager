@@ -15,8 +15,18 @@
       "label": "Application"
     }
   },
+  
   "customizations": {
     "vscode": {
+      //TODO
+      /** 
+      "settings": {
+        "terminal.integrated.shellArgs.linux": [
+          "-c",
+          "cd /workspace/.devcontainer/start-dev.sh/directory && ./start-dev.sh; exec $SHELL"
+        ]
+      },
+      **/
       "extensions": [
         "ms-vscode-remote.remote-containers",
         "esbenp.prettier-vscode",
@@ -28,4 +38,5 @@
       ]
     }
   }
+  
 }

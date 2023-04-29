@@ -7,6 +7,11 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh &
 
 RUN pip install pre-commit
 
+COPY postCreateCommand.sh .
+
+CMD ["./postCreateCommand"]
+
+
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
