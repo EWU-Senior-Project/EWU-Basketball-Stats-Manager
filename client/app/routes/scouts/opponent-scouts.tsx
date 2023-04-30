@@ -1,5 +1,4 @@
-import { AppBar, Button } from '@mui/material';
-import { Link } from '@remix-run/react';
+import { AppBar } from '@mui/material';
 
 import CreateScoutingReportDialog from '~/components/CreateScoutingReport/CreateScoutingReportDialog';
 import OpponentScoutsTable from '~/components/Tables/OpponentScoutsTable';
