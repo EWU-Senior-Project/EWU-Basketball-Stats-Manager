@@ -6,7 +6,8 @@
     "dev": "remix dev",
     "start": "remix-serve build",
     "typecheck": "tsc",
-    "lint": "eslint app"
+    "lint": "eslint app",
+    "generate": "openapi --input ./spec.json --output ./generated"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
