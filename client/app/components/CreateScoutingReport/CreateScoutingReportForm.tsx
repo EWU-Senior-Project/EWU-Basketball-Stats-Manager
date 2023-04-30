@@ -50,7 +50,6 @@ const useStyles = makeStyles({
 const CreateScoutingReportForm = () => {
   const classes = useStyles();
   const [disabled, setDisabled] = useState(true);
-  console.log(disabled);
 
   return (
     <DialogContent dividers>
