@@ -1,23 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
-using server.Dto;
 namespace server.Controllers;
 
-[ApiController]
 [Route("[controller]")]
+[ApiController]
 public class PlayerStatsController : ControllerBase
 {
-    [HttpGet(Name = "GetTopScorers")]
-    public TopScorersDto GetTopScorers()
+    /// <summary>
+    /// Retrieves Top scorers
+    /// </summary>
+    /// <returns>TopScorersDTO</returns>
+    [HttpGet("GetTopScorers")]
+    public IEnumerable<PlayerDto> GetTopScorers()
     {
-        return new TopScorersDto(
-            "Bugsy Bouges",
-            23,
-            29.6,
-            9.8,
-            9.8,
-            9.8,
-            9.8,
-            9.8
-        );
+        PlayerDto player = new PlayerDto();
+        player.number = 2;
+        player.name = "Leborn";
+        player.pts = 10;
+        player.fgm = 11.1;
+        player.fga = 12.2;
+        player.fgp = 99.9;
+
+        var playerList = new List<PlayerDto>();
+        playerList.Add(player);
+        playerList.Add(player);
+        playerList.Add(player);
+        playerList.Add(player);
+        playerList.Add(player);
+
+        return playerList;
     }
 }

@@ -8,13 +8,26 @@ import {
   TableCell,
   TableBody,
 } from '@mui/material';
+import { useLoaderData } from '@remix-run/react';
 import theme from '~/styles/pallette';
 
 type IProps = {
   title: boolean;
 };
 
+type data = {
+  number: number;
+  name: string;
+  pts: number;
+  fgm: number;
+  fga: number;
+  fgp: number;
+};
+
 const TeamStatsTable = ({ title }: IProps) => {
+  const data = useLoaderData<data[]>();
+  console.log(data[0].name);
+  console.log('TEAM STATS TABLE: ', data);
   return (
     <>
       {title && (
