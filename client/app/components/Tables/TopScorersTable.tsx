@@ -8,13 +8,24 @@ import {
   TableCell,
   TableBody,
 } from '@mui/material';
+import { useLoaderData } from '@remix-run/react';
 import theme from '~/styles/pallette';
 
 type IProps = {
   title: boolean;
 };
 
+type player = {
+  number: number;
+  name: string;
+  pts: number;
+  fgm: number;
+  fga: number;
+  fgp: number;
+};
+
 const TopScorersTable = ({ title }: IProps) => {
+  const players = useLoaderData<player[]>();
   return (
     <div
       style={{
@@ -53,13 +64,13 @@ const TopScorersTable = ({ title }: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {topScorerRows.map((row) => (
-              <TableRow key={row.jerseyNumber}>
-                <TableCell>{row.jerseyNumber}</TableCell>
-                <TableCell align="right">{row.player}</TableCell>
-                <TableCell align="right">{row.pts}</TableCell>
-                <TableCell align="right">{`${row.fgMade}-${row.fgAttempted}`}</TableCell>
-                <TableCell align="right">{row.fgPercentage}</TableCell>
+            {players.map((player) => (
+              <TableRow key={player.number}>
+                <TableCell>{player.number}</TableCell>
+                <TableCell align="right">{player.name}</TableCell>
+                <TableCell align="right">{player.pts}</TableCell>
+                <TableCell align="right">{`${player.fgm}-${player.fga}`}</TableCell>
+                <TableCell align="right">{player.fgp}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -70,18 +81,3 @@ const TopScorersTable = ({ title }: IProps) => {
 };
 
 export default TopScorersTable;
-
-function createData(
-  jerseyNumber: number,
-  player: string,
-  pts: number,
-  fgMade: number,
-  fgAttempted: number,
-  fgPercentage: number
-) {
-  return { jerseyNumber, player, pts, fgMade, fgAttempted, fgPercentage };
-}
-
-const topScorerRows = Array.from({ length: 5 }, () =>
-  createData(2, 'bond, james bond', 0, 0, 0, 0)
-);
