@@ -20,11 +20,12 @@ import TeamStatsTable from '~/components/Tables/TeamStatsTable';
 import ThreePointShootersTable from '~/components/Tables/ThreePointShootersTable';
 import TopScorersTable from '~/components/Tables/TopScorersTable';
 import TopReboundersTable from '~/components/Tables/TopReboundersTable';
-import { GetTopScorers } from '~/api/teamStatsApi.server';
+import { PlayerStats } from '~/apiClient/PlayerStats';
 
 export const loader = () => {
-  const topScorers = GetTopScorers();
-  return topScorers;
+  const topScorers = new PlayerStats();
+  const data = topScorers.getTopScorersList();
+  return JSON.stringify(data);
 };
 
 const Analytics = () => {

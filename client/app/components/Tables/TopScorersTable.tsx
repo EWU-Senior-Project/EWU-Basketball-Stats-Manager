@@ -9,23 +9,15 @@ import {
   TableBody,
 } from '@mui/material';
 import { useLoaderData } from '@remix-run/react';
+import type { PlayerDto } from '~/apiClient/data-contracts';
 import theme from '~/styles/pallette';
 
 type IProps = {
   title: boolean;
 };
 
-type player = {
-  number: number;
-  name: string;
-  pts: number;
-  fgm: number;
-  fga: number;
-  fgp: number;
-};
-
 const TopScorersTable = ({ title }: IProps) => {
-  const players = useLoaderData<player[]>();
+  const players = useLoaderData<PlayerDto[]>();
   return (
     <div
       style={{
