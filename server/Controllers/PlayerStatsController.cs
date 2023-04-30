@@ -8,7 +8,7 @@ public class PlayerStatsController : ControllerBase
     /// <summary>
     /// Retrieves Top scorers
     /// </summary>
-    /// <returns>TopScorersDTO</returns>
+    /// <returns>List of players.</returns>
     [HttpGet("GetTopScorers")]
     public IEnumerable<PlayerDto> GetTopScorers()
     {
