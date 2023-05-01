@@ -18,6 +18,12 @@ import {
   styled,
 } from '@mui/material';
 import { useState } from 'react';
+import SectionHeader from './PanelOptions/SectionHeader';
+import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
+
+interface IProps {
+  AddComponent: (item: ReactJSXElement) => void;
+}
 
 const drawerWidth = 220;
 
@@ -63,12 +69,13 @@ const StyledDrawer = styled(Drawer, {
   borderRightWidth: 1,
 }));
 
-const ScoutingReportPanel = () => {
+const ScoutingReportPanel = ({ AddComponent }: IProps) => {
   const [isExpanded, setCollapsed] = useState(true);
 
   return (
     <StyledDrawer
       variant="permanent"
+      style={{ position: 'sticky' }}
       open={isExpanded}
       sx={{
         '& .MuiDrawer-root': {
@@ -92,7 +99,7 @@ const ScoutingReportPanel = () => {
         </ListItem>
         {listItems.map((item) => (
           <ListItem disablePadding key={item.title}>
-            <ListItemButton onClick={item.component}>
+            <ListItemButton onClick={() => AddComponent(item.component)}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primaryTypographyProps={{ fontSize: 12 }}>
                 {item.title}
@@ -117,6 +124,7 @@ const listItems: IListItem[] = [
   {
     title: 'Section Header',
     icon: <AcUnit fontSize="small" />,
+    component: <SectionHeader />,
   },
   {
     title: 'Spacer',
