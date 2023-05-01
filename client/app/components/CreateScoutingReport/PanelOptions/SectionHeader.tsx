@@ -1,4 +1,6 @@
-import { Card, CardHeader } from '@mui/material';
+import { Card } from '@mui/material';
+
+import SlateEditor from '~/components/SlateEditor';
 
 const SectionHeader = () => {
   return (
@@ -6,7 +8,7 @@ const SectionHeader = () => {
       variant="outlined"
       style={{ display: 'flex', flex: 1, height: '50px' }}
     >
-      asdf
+      <SlateEditor />
     </Card>
   );
 };
