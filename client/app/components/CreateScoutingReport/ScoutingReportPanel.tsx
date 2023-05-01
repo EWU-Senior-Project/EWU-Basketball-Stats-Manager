@@ -20,6 +20,7 @@ import {
 import { useState } from 'react';
 import SectionHeader from './PanelOptions/SectionHeader';
 import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
+import Text from './PanelOptions/Text';
 
 interface IProps {
   AddComponent: (item: ReactJSXElement) => void;
@@ -133,6 +134,7 @@ const listItems: IListItem[] = [
   {
     title: 'Text',
     icon: <AcUnit fontSize="small" />,
+    component: <Text />,
   },
   {
     title: 'Image',

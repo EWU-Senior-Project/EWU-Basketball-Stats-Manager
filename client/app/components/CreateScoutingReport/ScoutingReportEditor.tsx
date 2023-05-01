@@ -1,5 +1,5 @@
 import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
-import { Box, Card, Container, Paper, Typography } from '@mui/material';
+import { Box, Container, Paper, Typography } from '@mui/material';
 
 interface IProps {
   items: ReactJSXElement[];
@@ -25,12 +25,10 @@ const ScoutingReportEditor = ({ items }: IProps) => {
         <Container
           style={{
             display: 'flex',
-            flex: 1,
             flexDirection: 'row',
             maxWidth: '1000px',
             flexWrap: 'wrap',
-            gap: '2em',
-            justifyContent: 'center',
+            gap: '1em',
           }}
         >
           {items}
