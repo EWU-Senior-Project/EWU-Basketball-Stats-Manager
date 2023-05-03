@@ -11,7 +11,7 @@ type CustomElement = { type: 'paragraph'; children: CustomText[] };
 type CustomText = { text: string };
 
 type IProps = {
-  type: 'header' | 'text';
+  type: 'header' | 'text' | 'description';
 };
 
 declare module 'slate' {
@@ -41,6 +41,10 @@ const Header = (props: any) => {
   );
 };
 
+const Description = (props: any) => {
+  return <Typography {...props.attributes}>{props.children}</Typography>;
+};
+
 const Text = (props: any) => {
   return (
     <div>
@@ -56,7 +60,6 @@ const Text = (props: any) => {
       >
         {props.children}
       </Typography>
-      <Typography paddingTop={'5px'}>Default Body</Typography>
     </div>
   );
 };
@@ -72,6 +75,8 @@ const SlateEditor = ({ type }: IProps) => {
     switch (type) {
       case 'header':
         return <Header {...props} />;
+      case 'description':
+        return <Description {...props} />;
       case 'text':
         return <Text {...props} />;
       default:

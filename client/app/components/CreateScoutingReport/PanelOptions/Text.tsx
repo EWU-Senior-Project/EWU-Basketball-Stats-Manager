@@ -15,7 +15,8 @@ const Text = () => {
   const classes = useStyles();
   return (
     <Card variant="outlined" className={classes.card}>
-      <SlateEditor type={'text'} />
+      <SlateEditor type="text" />
+      <SlateEditor type="description" />
     </Card>
   );
 };
