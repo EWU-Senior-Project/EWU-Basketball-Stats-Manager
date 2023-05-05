@@ -1,12 +1,28 @@
 using Microsoft.EntityFrameworkCore;
-
-public class AppDbContext : DbContext
+namespace server.Data
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
-        : base(options)
+    public class AppDbContext : DbContext
     {
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+            
+        }
 
+        public DbSet<Team> Teams { get; set; } = null!;
+        public DbSet<Game> Games { get; set; } = null!;
+        public DbSet<Player> Players { get; set; } = null!;
+        public DbSet<PlayerBox> PlayerBoxes { get; set; } = null!;
+        public DbSet<TeamBox> TeamBoxes { get; set; } = null!;
+        //TODO
+        //public DbSet<PlayByPlay> PlayByPlays { get; set; } = null!;
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+            
+        }
     }
-
-    public DbSet<Teams> Teams { get; set; } = null!;
 }
