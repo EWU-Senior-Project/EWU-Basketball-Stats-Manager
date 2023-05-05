@@ -22,7 +22,19 @@ namespace server.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-            
+        
+        modelBuilder.Entity<Game>()
+        .HasOne(g => g.HomeTeam)
+        .WithMany(t => t.HomeGames)
+        .HasForeignKey(g => g.HomeTeamId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Game>()
+        .HasOne(g => g.AwayTeam)
+        .WithMany(t => t.AwayGames)
+        .HasForeignKey(g => g.AwayTeamId)
+        .OnDelete(DeleteBehavior.Restrict);
+    
         }
     }
 }

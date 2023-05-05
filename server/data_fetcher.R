@@ -35,4 +35,4 @@ write.table(tibbles[[tibble_name]], file.path(output_dir, paste0(tibble_name, ".
 sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
 }
 
-cat("SUCCESS \n")
+cat("data fetch SUCCESS \n")
