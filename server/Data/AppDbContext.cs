@@ -14,7 +14,7 @@ namespace server.Data
         public DbSet<Player> Players { get; set; } = null!;
         public DbSet<PlayerBox> PlayerBoxes { get; set; } = null!;
         public DbSet<TeamBox> TeamBoxes { get; set; } = null!;
-        //TODO
+        //@TODO
         //public DbSet<PlayByPlay> PlayByPlays { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

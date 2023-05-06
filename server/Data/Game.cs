@@ -13,6 +13,7 @@ namespace server.Data
         public int HomeTeamId { get; set; }
         public virtual Team AwayTeam { get; set; } = null!;
         public int AwayTeamId { get; set; }
+        // @TODO
         //public virtual ICollection<PlayByPlay> PlayByPlays { get; set; } = null!;
         public virtual ICollection<PlayerBox> PlayerBoxes { get; set; } = null!;
         public virtual ICollection<TeamBox> TeamBoxes { get; set; } = null!;
