@@ -1,5 +1,3 @@
-
-
 public class PlayerDto
 {
     public int number { get; set; }
@@ -8,5 +6,4 @@ public class PlayerDto
     public double fgm { get; set; }
     public double fga { get; set; }
     public double fgp { get; set; }
-
 }

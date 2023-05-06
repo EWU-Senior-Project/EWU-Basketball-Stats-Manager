@@ -6,7 +6,7 @@ namespace server.Data
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {
-            
+
         }
 
         public DbSet<Team> Teams { get; set; } = null!;
@@ -17,24 +17,23 @@ namespace server.Data
         //TODO
         //public DbSet<PlayByPlay> PlayByPlays { get; set; } = null!;
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-        
-        modelBuilder.Entity<Game>()
-        .HasOne(g => g.HomeTeam)
-        .WithMany(t => t.HomeGames)
-        .HasForeignKey(g => g.HomeTeamId)
-        .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<Game>()
-        .HasOne(g => g.AwayTeam)
-        .WithMany(t => t.AwayGames)
-        .HasForeignKey(g => g.AwayTeamId)
-        .OnDelete(DeleteBehavior.Restrict);
-    
+            modelBuilder.Entity<Game>()
+            .HasOne(g => g.HomeTeam)
+            .WithMany(t => t.HomeGames)
+            .HasForeignKey(g => g.HomeTeamId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Game>()
+            .HasOne(g => g.AwayTeam)
+            .WithMany(t => t.AwayGames)
+            .HasForeignKey(g => g.AwayTeamId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

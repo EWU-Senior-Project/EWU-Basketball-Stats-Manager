@@ -1,7 +1,5 @@
 namespace server.Data
 {
-    
-
     public class TeamBox
     {
         public int TeamBoxId { get; set; }

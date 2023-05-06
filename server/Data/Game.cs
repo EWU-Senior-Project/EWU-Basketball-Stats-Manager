@@ -1,9 +1,7 @@
 namespace server.Data
 {
-
     public class Game
     {
-        
         public int GameId { get; set; }
         public int Season { get; set; }
         public int SeasonType { get; set; }

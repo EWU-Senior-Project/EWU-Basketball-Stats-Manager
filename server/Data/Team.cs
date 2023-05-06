@@ -21,7 +21,5 @@ namespace server.Data
         public ICollection<Game> AwayGames { get; set; } = null!;
         //public ICollection<PlayerBox> PlayerBoxes { get; set; } = null!;
         public ICollection<TeamBox> TeamBoxes { get; set; } = null!;
-
-
     }
 }

@@ -1,7 +1,5 @@
 namespace server.Data
 {
-    
-
     public class PlayByPlay
     {
         public int Id { get; set; }
@@ -49,7 +47,6 @@ namespace server.Data
         public double CoordinateY { get; set; }
         public DateTime GameDate { get; set; }
         public DateTime GameDateTime { get; set; }
-
         public virtual Game Game { get; set; } = null!;
     }
 }
