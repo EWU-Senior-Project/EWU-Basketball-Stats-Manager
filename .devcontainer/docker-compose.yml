@@ -10,7 +10,7 @@ services:
     volumes:
       - ..:/workspace:cached
 
-    command: 
+    command: sleep infinity
     network_mode: service:db
     
   db:
