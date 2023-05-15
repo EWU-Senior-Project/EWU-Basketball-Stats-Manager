@@ -24,7 +24,8 @@
         "dbaeumer.vscode-eslint",
         "ms-dotnettools.csharp",
         "ms-azuretools.vscode-docker",
-        "k--kato.docomment"
+        "k--kato.docomment",
+        "jmrog.vscode-nuget-package-manager"
       ]
     }
   }
