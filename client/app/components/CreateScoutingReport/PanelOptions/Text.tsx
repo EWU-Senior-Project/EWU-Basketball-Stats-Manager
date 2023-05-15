@@ -5,7 +5,7 @@ import SlateEditor from '~/components/SlateEditor';
 const useStyles = makeStyles({
   card: {
     display: 'flex',
-    width: '48%',
+    width: '49%',
     height: '200px',
     flexDirection: 'column',
   },
