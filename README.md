@@ -1,16 +1,18 @@
 # EWU Basketball Stats Manager
 
-## Steps before starting development
+# Setup
+
+## Steps Before Starting Development
 
 - ### Install VS Code [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
-- ### Add Remote Development Extension to VS Code
+- ### Add remote development extension to VS Code
 
-## Steps for development on Windows.
+## Steps for Development on Windows.
 
 - ### Open powershell and run `wsl --install`
 
-- ### Install Ubuntu LTS from windows store.
+- ### Install Ubuntu LTS from Windows Store.
 
 - ### Make sure that WSL 2 is running and not WSL 1 by using `wsl -l -v` in powershell
 
@@ -20,19 +22,60 @@
 
 - ### Install Docker CLI in Ubuntu.
 
-  - #### Follow Steps on: [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
+  - #### Follow steps on: [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
   - #### Run the command: `dockerd` to start the docker daemon
 
 - ### Open ubuntu terminal and clone repository.
 
-- ### Navigate to cloned repo and enter `code .` to open the repo in vsCode using remote connection.
+- ### Navigate to cloned repo and enter `code .` to open the repo in VS Code using remote connection.
 
-- ### Remote into devContainer <small>(using green box in the bottom left)<small>
+- ### Remote into Dev Container <small>(using green box in the bottom left)</small>
 
-## Contributing
+## VERY IMPORTANT!!!
 
-### Conventional Commits
+### We did not get to the point of setting up dev certificates. This causes the issue of not allowing the Fetch API to access endpoints
 
-This repository uses `conventional commits` to ensure that the commit log is readable, and follows industry best practices.
+- ### To fix this, you can create a file called .env within the client directory and paste `export NODE_TLS_REJECT_UNAUTHORIZED=0` into it
 
-https://www.conventionalcommits.org/en/v1.0.0/
+# Development
+
+## How to Start Development Server
+
+- ### Open the Project in the Dev Container
+
+- ### From the Root Project's Root Directory run the commands: `cd server` then `dotnet run`
+
+  - #### This will start up the backend of the program
+  - #### You can access the [Swagger Tool](https://swagger.io/) by pressing `ctrl + click` on the `https://localhost:8080` link in the terminal
+
+- ### Open a New VS Code Integrated Terminal
+
+- ### From the Project's Root Directory run the commands: `cd client` then `yarn dev`
+  - #### This will start up the frontend of the program
+  - #### You can access the live sever by pressing `ctrl + click` on the `http://localhost:3000` link in the terminal
+
+# Tech Stack
+
+- ## Frontend
+
+  - ### [Typescript](https://www.typescriptlang.org/docs/)
+  - ### [React](https://react.dev/)
+  - ### [Material UI](https://mui.com/)
+  - ### [Remix](https://remix.run/docs/en/main)
+  - ### [Slate JS](https://docs.slatejs.org/)
+
+- ## Backend
+
+  - ### [C#](https://learn.microsoft.com/en-us/dotnet/csharp/)
+  - ### [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/)
+  - ### [Swagger](https://swagger.io/)
+  - ### [PostgreSQL](https://www.postgresql.org/)
+  - ### [PGAdmin](https://www.pgadmin.org/download/)
+
+- ## Development Container
+
+  - ### [Docs](https://code.visualstudio.com/docs/devcontainers/containers)
+
+- ## Data Source
+  - ### [Repository](https://github.com/sportsdataverse/hoopR/)
+  - ### [R Documentation](https://www.r-project.org/other-docs.html)
