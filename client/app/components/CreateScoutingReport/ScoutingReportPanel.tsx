@@ -21,6 +21,7 @@ import { useState } from 'react';
 import SectionHeader from './PanelOptions/SectionHeader';
 import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import Text from './PanelOptions/Text';
+import PlayerStats from './PanelOptions/PlayerStats';
 
 interface IProps {
   AddComponent: (item: ReactJSXElement) => void;
@@ -147,6 +148,7 @@ const listItems: IListItem[] = [
   {
     title: 'Personnel',
     icon: <Person fontSize="small" />,
+    component: <PlayerStats />,
   },
   {
     title: 'Leaders',

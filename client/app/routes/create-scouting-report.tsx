@@ -4,6 +4,7 @@ import ScoutingReportPanel from '~/components/CreateScoutingReport/ScoutingRepor
 import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
 import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
+import { GetPlayerById } from '~/api/teamStatsApi.server';
 
 const useStyles = makeStyles({
   hidePrint: {},

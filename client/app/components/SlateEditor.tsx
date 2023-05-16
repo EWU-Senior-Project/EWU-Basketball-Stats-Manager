@@ -11,7 +11,7 @@ type CustomElement = { type: 'paragraph'; children: CustomText[] };
 type CustomText = { text: string };
 
 type IProps = {
-  type: 'header' | 'text' | 'description';
+  type: 'header' | 'text' | 'playerStats' | 'description';
 };
 
 declare module 'slate' {
@@ -64,12 +64,17 @@ const Text = (props: any) => {
   );
 };
 
+const PlayerStats = (props: any) => {
+  return <div {...props.attributes}>{props.children}</div>;
+};
+
 const DefaultElement = (props: any) => {
   return <p {...props.attributes}>{props.children}</p>;
 };
 
 const SlateEditor = ({ type }: IProps) => {
   const [editor] = useState(() => withReact(createEditor()));
+  console.log('HERE: ', editor);
 
   const renderElement = useCallback((props: any) => {
     switch (type) {
@@ -79,6 +84,8 @@ const SlateEditor = ({ type }: IProps) => {
         return <Description {...props} />;
       case 'text':
         return <Text {...props} />;
+      case 'playerStats':
+        return <PlayerStats {...props} />;
       default:
         return <DefaultElement {...props} />;
     }
