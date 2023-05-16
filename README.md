@@ -29,13 +29,15 @@
 
 - ### Navigate to cloned repo and enter `code .` to open the repo in VS Code using remote connection.
 
-- ### Remote into Dev Container <small>(using green box in the bottom left)</small>
+- ### Look at the box in the bottom left to see if the container is running
+- ### If it is not running, select the box to open the command palette
+- ### Select the option: `reopen in container`
 
 ## VERY IMPORTANT!!!
 
-### We did not get to the point of setting up dev certificates. This causes the issue of not allowing the Fetch API to access endpoints
+### Dev Certificates not implemented yet. This blocks Fetch API's access to endpoints.
 
-- ### To fix this, you can create a file called .env within the client directory and paste `export NODE_TLS_REJECT_UNAUTHORIZED=0` into it
+- ### To fix this, you can create a file called .env at the root of the client directory and paste `export NODE_TLS_REJECT_UNAUTHORIZED=0` into it.
 
 # Development
 
@@ -43,15 +45,13 @@
 
 - ### Open the Project in the Dev Container
 
-- ### From the Root Project's Root Directory run the commands: `cd server` then `dotnet run`
+- ### From the Project's Root Directory run the commands: `cd server` then `dotnet run`. <small>This will start up the backend of the program</small>
 
-  - #### This will start up the backend of the program
   - #### You can access the [Swagger Tool](https://swagger.io/) by pressing `ctrl + click` on the `https://localhost:8080` link in the terminal
 
 - ### Open a New VS Code Integrated Terminal
 
-- ### From the Project's Root Directory run the commands: `cd client` then `yarn dev`
-  - #### This will start up the frontend of the program
+- ### From the Project's Root Directory run the commands: `cd client` then `yarn dev`. <small>This will start up the frontend of the program</small>
   - #### You can access the live sever by pressing `ctrl + click` on the `http://localhost:3000` link in the terminal
 
 # Tech Stack
