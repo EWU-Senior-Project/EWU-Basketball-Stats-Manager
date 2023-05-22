@@ -1,3 +1,5 @@
+namespace server.tests;
+
 using server.Data;
 
 public class TestFixture : IDisposable

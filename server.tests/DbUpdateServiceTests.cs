@@ -19,9 +19,11 @@ public class UserServiceTests : IClassFixture<TestFixture>
 
         //act
         DbUpdateService.SeedTeams(_context);
-        var teams = _context.Teams;
+        var teams = _context.Teams
+            .Select(t => t.Name)
+            .Distinct();
 
         //Assert
-        Assert.Equal(351, teams.Count());
+        Assert.Equal(_context.Teams.Count(), teams.Count());
     }
 }

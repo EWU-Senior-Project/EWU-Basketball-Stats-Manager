@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(
     e => e.UseNpgsql("Server=localhost;Database=statsdb;Port=5432;User Id=postgres")
 );
 
+//add services
 builder.Services.AddScoped<DbUpdateService>();
 
 builder.Services.AddSwaggerGen(c =>

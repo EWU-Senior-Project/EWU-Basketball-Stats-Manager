@@ -1,4 +1,6 @@
-cd server
+cd server.tests
+dotnet restore
+cd ../server
 dotnet restore
 dotnet dev-certs https --trust
 chmod +x data_fetcher.R

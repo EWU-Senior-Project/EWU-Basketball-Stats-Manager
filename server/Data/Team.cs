@@ -6,8 +6,6 @@ namespace server.Data
     public class Team
     {
         public int TeamId { get; set; }
-        public string Uid { get; set; } = null!;
-        public string Slug { get; set; } = null!;
         public string Location { get; set; } = null!;
         public string Name { get; set; } = null!;
         public string Abbreviation { get; set; } = null!;
