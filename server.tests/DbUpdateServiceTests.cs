@@ -12,7 +12,7 @@ public class UserServiceTests : IClassFixture<TestFixture>
     }
 
     [Fact]
-    public void SeedTeams()
+    public void SeedTeamsTests()
     {
         //arrange
         //nothing since the method is static
@@ -20,7 +20,7 @@ public class UserServiceTests : IClassFixture<TestFixture>
         //act
         DbUpdateService.SeedTeams(_context);
         var teams = _context.Teams
-            .Select(t => t.Name)
+            .Select(t => new {t.Name , t.Location})
             .Distinct();
 
         //Assert
