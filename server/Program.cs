@@ -2,6 +2,7 @@ using server.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<AppDbContext>(
     e => e.UseNpgsql("Server=localhost;Database=statsdb;Port=5432;User Id=postgres")
 );
+
+builder.Services.AddScoped<DbUpdateService>();
 
 builder.Services.AddSwaggerGen(c =>
 {

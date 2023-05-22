@@ -17,7 +17,7 @@ public class DbUpdateService
 
     public static void SeedTeams (AppDbContext context)
     {
-        using (var reader = new StreamReader("../Content/schedule.csv"))
+        using (var reader = new StreamReader("../../../Content/schedule.csv"))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Context.RegisterClassMap<TeamClassMap>();
