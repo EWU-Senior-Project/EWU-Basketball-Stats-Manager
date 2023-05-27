@@ -15,7 +15,8 @@ public class UserServiceTests : IClassFixture<TestFixture>
     public void SeedTeamsTests()
     {
         //arrange
-        //nothing since the method is static
+        //nothing since teams is the first data seeded
+        //testing to ensure that every entry is unique
 
         //act
         DbUpdateService.SeedTeams(_context);
@@ -25,5 +26,41 @@ public class UserServiceTests : IClassFixture<TestFixture>
 
         //Assert
         Assert.Equal(_context.Teams.Count(), teams.Count());
+    }
+
+    [Fact]
+    public void SeedPlayerTests()
+    {
+        //arrange
+        DbUpdateService.SeedTeams(_context);
+
+        //act
+        DbUpdateService.SeedPlayers(_context);
+
+        //testing to make sure players were not entered twice under dif ID's
+        var players = _context.Players
+            .Select(p => new {p.DisplayName , p.HeadshotHref, p.TeamId})
+            .Distinct();
+        //Assert
+        Assert.Equal(_context.Players.Count(), players.Count());
+    }
+
+
+    [Fact]
+    public void SeedGameTests()
+    {
+        //arrange
+        DbUpdateService.SeedTeams(_context);
+        DbUpdateService.SeedPlayers(_context);
+
+        //act
+        DbUpdateService.SeedGames(_context);
+
+        //testing to make sure players were not entered twice under dif ID's
+        var games = _context.Games
+            .Select(g => new {g.GameDateTime , g.GameDate, g.HomeTeamId})
+            .Distinct();
+        //Assert
+        Assert.Equal(_context.Games.Count(), games.Count());
     }
 }
