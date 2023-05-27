@@ -1,4 +1,6 @@
+using server.Data.Mappings.MappingUtils;
 using  CsvHelper.Configuration;
+
 
 namespace server.Data.Mappings;
 
@@ -27,11 +29,12 @@ public sealed class TeamBoxClassMap : ClassMap<TeamBox>
         Map(m => m.Blocks).Name("blocks");
         Map(m => m.Turnovers).Name("team_turnovers");
         Map(m => m.Fouls).Name("fouls");
-        Map(m => m.LargestLead).Name("largest_lead");
-        Map(m => m.Turnovers).Name("starter");
+        Map(m => m.LargestLead).Name("largest_lead").TypeConverter<CustomInt32Converter>();
         Map(m => m.TotalTurnovers).Name("total_turnovers");
         Map(m => m.TotalRebounds).Name("total_rebounds");
         Map(m => m.TotalTechnicalFouls).Name("total_technical_fouls");
 
     }
+
+
 }

@@ -66,7 +66,8 @@ public class DbUpdateService
             context.SaveChanges();
         }
     }
-
+    [Obsolete("Use SeedGamesFast()")]
+    //keeping as a reference for readability
     public static void SeedGames (AppDbContext context)
     {
         using (var reader = new StreamReader("../../../Content/team_box.csv"))
@@ -102,4 +103,129 @@ public class DbUpdateService
             context.SaveChanges();
         }
     }
+    public static void SeedGamesFast(AppDbContext context)
+    {
+        using (var reader = new StreamReader("../../../Content/team_box.csv"))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            csv.Context.RegisterClassMap<GameRowClassMap>();
+            var records = csv.GetRecords<GameRow>();
+
+            // A dictionary to hold games in progress of being built.
+            // The key is game ID and the value is the Game object.
+            Dictionary<int, Game> gamesInProgress = new Dictionary<int, Game>();
+
+            foreach (var record in records)
+            {
+                if (gamesInProgress.TryGetValue(record.Id, out Game? gameInProgress))
+                {
+                    // second row of a game.
+                    if (record.TeamHomeAway == "away")
+                    {
+                        gameInProgress.AwayTeamId = record.TeamId;
+                        gameInProgress.AwayScore = record.TeamScore;
+                    }
+                    else
+                    {
+                        gameInProgress.HomeTeamId = record.TeamId;
+                        gameInProgress.HomeScore = record.TeamScore;
+                    }
+
+                    // if true then entry is complete and should be added to context
+                    if (!context.Games.Any(game => game.GameId == gameInProgress.GameId))
+                    {
+                        context.Games.Add(gameInProgress);
+                    }
+                    //no longer in progress so remove from dictionary
+                    gamesInProgress.Remove(record.Id);
+                }
+                else
+                {
+                    //New game so start building it
+                    //wont be added to the context until object is complete
+                    Game newGame = new Game
+                    {
+                        GameId = record.Id,
+                        Season = record.Season,
+                        SeasonType = record.SeasonType,
+                        GameDate = record.GameDate,
+                        GameDateTime = record.GameDateTime
+                    };
+                    if (record.TeamHomeAway == "away")
+                    {
+                        newGame.AwayTeamId = record.TeamId;
+                        newGame.AwayScore = record.TeamScore;
+                    }
+                    else
+                    {
+                        newGame.HomeTeamId = record.TeamId;
+                        newGame.HomeScore = record.TeamScore;
+                    }
+                    gamesInProgress[record.Id] = newGame;
+                }
+            }
+            context.SaveChanges();
+        }
+    }
+
+    public static void SeedTeamBoxScores (AppDbContext context)
+    {
+        using (var reader = new StreamReader("../../../Content/team_box.csv"))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            csv.Context.RegisterClassMap<TeamBoxClassMap>();
+            var verboseRecords = csv.GetRecords<TeamBox>();
+
+             var filteredRecords = verboseRecords.GroupBy(box => new {box.GameId, box.TeamId})
+                                                .Select(group => group.First())
+                                                .ToList();
+            //loading db to check against
+            var existingRecords = new HashSet<(int, int)>(
+                context.TeamBoxes.Select(box => new {box.GameId, box.TeamId})
+                                    .ToList()
+                                    .Select(x => (x.GameId, x.TeamId))
+            );
+
+            foreach (var row in filteredRecords)
+            {
+                if(!existingRecords.Contains((row.GameId, row.TeamId)))
+                {
+                    context.TeamBoxes.Add(row);
+                }
+            }
+            context.SaveChanges();
+        }
+    }
+
+    public static void SeedPlayerBoxScores (AppDbContext context)
+    {
+        using (var reader = new StreamReader("../../../Content/player_box.csv"))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+        {
+            csv.Context.RegisterClassMap<PlayerBoxClassMap>();
+            var verboseRecords = csv.GetRecords<PlayerBox>();
+            
+            //removing duplicates from update file
+            var filteredRecords = verboseRecords.GroupBy(box => new {box.GameId, box.PlayerId})
+                                                .Select(group => group.First())
+                                                .ToList();
+            //loading db to check against
+            var existingRecords = new HashSet<(int, int)>(
+                context.PlayerBoxes.Select(box => new {box.GameId, box.PlayerId})
+                                    .ToList()
+                                    .Select(x => (x.GameId, x.PlayerId))
+            );
+
+            foreach (var row in filteredRecords)
+            {
+                //making sure we are not adding twice
+                if(!existingRecords.Contains((row.GameId, row.PlayerId)))
+                {
+                    context.PlayerBoxes.Add(row);
+                }
+            }
+            context.SaveChanges();
+        }
+    }
+
 }
