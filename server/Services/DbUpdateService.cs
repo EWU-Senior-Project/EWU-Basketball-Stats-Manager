@@ -15,9 +15,19 @@ public class DbUpdateService
         _context = context;
     }
 
-    public static void SeedTeams (AppDbContext context)
+    
+    public static void SeedDb(AppDbContext context, string teamPath, string playerPath)
     {
-        using (var reader = new StreamReader("../../../Content/team_box.csv"))
+        SeedTeams(context, teamPath);
+        SeedPlayers(context, playerPath);
+        SeedGamesFast(context, teamPath);
+        SeedTeamBoxScores(context, teamPath);
+        SeedPlayerBoxScores(context, playerPath);
+    }
+
+    public static void SeedTeams (AppDbContext context, string path)
+    {
+        using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Context.RegisterClassMap<TeamClassMap>();
@@ -38,9 +48,9 @@ public class DbUpdateService
         }
     }
 
-    public static void SeedPlayers (AppDbContext context)
+    public static void SeedPlayers (AppDbContext context, string path)
     {
-        using (var reader = new StreamReader("../../../Content/player_box.csv"))
+        using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Context.RegisterClassMap<PlayerClassMap>();
@@ -68,9 +78,9 @@ public class DbUpdateService
     }
     [Obsolete("Use SeedGamesFast()")]
     //keeping as a reference for readability
-    public static void SeedGames (AppDbContext context)
+    public static void SeedGames (AppDbContext context, string path)
     {
-        using (var reader = new StreamReader("../../../Content/team_box.csv"))
+        using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Context.RegisterClassMap<GameRowClassMap>();
@@ -85,7 +95,6 @@ public class DbUpdateService
                    GameId = g.Key,
                     Season = g.First().Season,
                     SeasonType = g.First().SeasonType,
-                    GameDate = g.First().GameDate,
                     GameDateTime = g.First().GameDateTime,
                     HomeTeamId = g.Single(r => r.TeamHomeAway == "home").TeamId,
                     AwayTeamId = g.Single(r => r.TeamHomeAway == "away").TeamId,
@@ -103,9 +112,9 @@ public class DbUpdateService
             context.SaveChanges();
         }
     }
-    public static void SeedGamesFast(AppDbContext context)
+    public static void SeedGamesFast(AppDbContext context, string path)
     {
-        using (var reader = new StreamReader("../../../Content/team_box.csv"))
+        using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Context.RegisterClassMap<GameRowClassMap>();
@@ -148,7 +157,6 @@ public class DbUpdateService
                         GameId = record.Id,
                         Season = record.Season,
                         SeasonType = record.SeasonType,
-                        GameDate = record.GameDate,
                         GameDateTime = record.GameDateTime
                     };
                     if (record.TeamHomeAway == "away")
@@ -168,9 +176,9 @@ public class DbUpdateService
         }
     }
 
-    public static void SeedTeamBoxScores (AppDbContext context)
+    public static void SeedTeamBoxScores (AppDbContext context, string path)
     {
-        using (var reader = new StreamReader("../../../Content/team_box.csv"))
+        using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Context.RegisterClassMap<TeamBoxClassMap>();
@@ -197,9 +205,9 @@ public class DbUpdateService
         }
     }
 
-    public static void SeedPlayerBoxScores (AppDbContext context)
+    public static void SeedPlayerBoxScores (AppDbContext context, string path)
     {
-        using (var reader = new StreamReader("../../../Content/player_box.csv"))
+        using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
             csv.Context.RegisterClassMap<PlayerBoxClassMap>();

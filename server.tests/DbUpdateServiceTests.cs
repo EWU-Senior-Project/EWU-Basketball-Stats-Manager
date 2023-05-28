@@ -5,6 +5,8 @@ using server.Data;
 public class UserServiceTests : IClassFixture<TestFixture>
 {
     private readonly AppDbContext _context;
+    private readonly string _teamPath = "../../../Content/team_box.csv";
+    private readonly string _playerPath = "../../../Content/player_box.csv";
 
     public UserServiceTests(TestFixture fixture)
     {
@@ -17,9 +19,9 @@ public class UserServiceTests : IClassFixture<TestFixture>
         //arrange
         //nothing since teams is the first data seeded
         //testing to ensure that every entry is unique
-
+        
         //act
-        DbUpdateService.SeedTeams(_context);
+        DbUpdateService.SeedTeams(_context, _teamPath);
         var teams = _context.Teams
             .Select(t => new {t.Name , t.Location})
             .Distinct();
@@ -32,10 +34,10 @@ public class UserServiceTests : IClassFixture<TestFixture>
     public void SeedPlayerTests()
     {
         //arrange
-        DbUpdateService.SeedTeams(_context);
+        DbUpdateService.SeedTeams(_context, _teamPath);
 
         //act
-        DbUpdateService.SeedPlayers(_context);
+        DbUpdateService.SeedPlayers(_context, _playerPath);
 
         //testing to make sure players were not entered twice under dif ID's
         var players = _context.Players
@@ -51,15 +53,15 @@ public class UserServiceTests : IClassFixture<TestFixture>
     public void SeedGameTests()
     {
         //arrange
-        DbUpdateService.SeedTeams(_context);
-        DbUpdateService.SeedPlayers(_context);
+        DbUpdateService.SeedTeams(_context, _teamPath);
+        DbUpdateService.SeedPlayers(_context, _playerPath);
 
         //act
-        DbUpdateService.SeedGames(_context);
+        DbUpdateService.SeedGames(_context, _teamPath);
 
         //testing to make sure players were not entered twice under dif ID's
         var games = _context.Games
-            .Select(g => new {g.GameDateTime , g.GameDate, g.HomeTeamId})
+            .Select(g => new {g.GameDateTime, g.HomeTeamId})
             .Distinct();
         //Assert
         Assert.Equal(_context.Games.Count(), games.Count());
@@ -69,33 +71,34 @@ public class UserServiceTests : IClassFixture<TestFixture>
     public void SeedGameFastTests()
     {
         //arrange
-        DbUpdateService.SeedTeams(_context);
-        DbUpdateService.SeedPlayers(_context);
+        DbUpdateService.SeedTeams(_context, _teamPath);
+        DbUpdateService.SeedPlayers(_context, _playerPath);
 
         //act
-        DbUpdateService.SeedGamesFast(_context);
+        DbUpdateService.SeedGamesFast(_context, _teamPath);
         var firstPass = _context.Games.Count();
-        DbUpdateService.SeedGamesFast(_context);
+        DbUpdateService.SeedGamesFast(_context, _teamPath);
         var secondPass = _context.Games.Count();
 
         var games = _context.Games
-            .Select(g => new {g.GameDateTime , g.GameDate, g.HomeTeamId})
+            .Select(g => new {g.GameDateTime , g.HomeTeamId})
             .Distinct();
         //Assert
         Assert.Equal(_context.Games.Count(), games.Count());
         Assert.Equal(firstPass, secondPass);
+        
     }
 
     [Fact]
     public void SeedTeamBoxTests()
     {
         //arrange
-        DbUpdateService.SeedTeams(_context);
-        DbUpdateService.SeedPlayers(_context);
-        DbUpdateService.SeedGamesFast(_context);
+        DbUpdateService.SeedTeams(_context, _teamPath);
+        DbUpdateService.SeedPlayers(_context, _playerPath);
+        DbUpdateService.SeedGamesFast(_context, _teamPath);
 
         //act
-        DbUpdateService.SeedTeamBoxScores(_context);
+        DbUpdateService.SeedTeamBoxScores(_context, _teamPath);
 
         var total = _context.TeamBoxes.Count();
         var teamBoxes = _context.TeamBoxes
@@ -110,12 +113,12 @@ public class UserServiceTests : IClassFixture<TestFixture>
     public void SeedPlayerBoxTests()
     {
         //arrange
-        DbUpdateService.SeedTeams(_context);
-        DbUpdateService.SeedPlayers(_context);
-        DbUpdateService.SeedGamesFast(_context);
-        DbUpdateService.SeedTeamBoxScores(_context);
+        DbUpdateService.SeedTeams(_context, _teamPath);
+        DbUpdateService.SeedPlayers(_context, _playerPath);
+        DbUpdateService.SeedGamesFast(_context, _teamPath);
+        DbUpdateService.SeedTeamBoxScores(_context, _teamPath);
         //act
-        DbUpdateService.SeedPlayerBoxScores(_context);
+        DbUpdateService.SeedPlayerBoxScores(_context, _playerPath);
 
         //testing to make sure players were not entered twice under dif ID's
         var playerBoxes = _context.PlayerBoxes
@@ -129,10 +132,10 @@ public class UserServiceTests : IClassFixture<TestFixture>
     public void QueryTeamBoxesFromTeamsTests()
     {
         
-        DbUpdateService.SeedTeams(_context);
-        DbUpdateService.SeedPlayers(_context);
-        DbUpdateService.SeedGamesFast(_context);
-        DbUpdateService.SeedTeamBoxScores(_context);
+        DbUpdateService.SeedTeams(_context, _teamPath);
+        DbUpdateService.SeedPlayers(_context, _playerPath);
+        DbUpdateService.SeedGamesFast(_context, _teamPath);
+        DbUpdateService.SeedTeamBoxScores(_context, _teamPath);
         //DbUpdateService.SeedPlayerBoxScores(_context);
 
         //testing to make sure players were not entered twice under dif ID's
