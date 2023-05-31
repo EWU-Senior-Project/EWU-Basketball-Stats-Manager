@@ -26,6 +26,7 @@ type player = {
 
 const TopScorersTable = ({ title }: IProps) => {
   const players = useLoaderData<player[]>();
+  console.log(players);
   return (
     <div
       style={{
@@ -64,7 +65,7 @@ const TopScorersTable = ({ title }: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {players.map((player) => (
+            {/* {players.map((player) => (
               <TableRow key={player.number}>
                 <TableCell>{player.number}</TableCell>
                 <TableCell align="right">{player.name}</TableCell>
@@ -72,7 +73,7 @@ const TopScorersTable = ({ title }: IProps) => {
                 <TableCell align="right">{`${player.fgm}-${player.fga}`}</TableCell>
                 <TableCell align="right">{player.fgp}</TableCell>
               </TableRow>
-            ))}
+            ))} */}
           </TableBody>
         </Table>
       </TableContainer>

@@ -10,7 +10,7 @@ public class PlayerStatsController : ControllerBase
     /// </summary>
     /// <returns>List of players.</returns>
     [HttpGet("GetTopScorers")]
-    public IEnumerable<PlayerDto> GetTopScorers(string query)
+    public IEnumerable<PlayerDto> GetTopScorers()
     {
         PlayerDto player = new PlayerDto();
         player.number = 2;
