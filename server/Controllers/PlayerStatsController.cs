@@ -21,7 +21,7 @@ public class PlayerStatsController : ControllerBase
     [HttpGet("GetTopScorers")]
     public IEnumerable<Player> GetTopScorers()
     {
-        return _PlayerStatsService.GetTopScorers();
+        return _PlayerStatsService.GetTopScorersByTeamId(331);
 
         // PlayerDto player = new PlayerDto();
         // player.number = 2;
