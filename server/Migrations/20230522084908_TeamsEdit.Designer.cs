@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using server.Data;
@@ -11,9 +12,11 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522084908_TeamsEdit")]
+    partial class TeamsEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,9 @@ namespace server.Migrations
 
                     b.Property<int>("AwayTeamId")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("GameDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("GameDateTime")
                         .HasColumnType("timestamp with time zone");
@@ -173,9 +179,6 @@ namespace server.Migrations
                     b.Property<int>("Steals")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TeamId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("ThreePointFieldGoalsAttempted")
                         .HasColumnType("integer");
 
@@ -190,8 +193,6 @@ namespace server.Migrations
                     b.HasIndex("GameId");
 
                     b.HasIndex("PlayerId");
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("PlayerBoxes");
                 });
@@ -383,17 +384,9 @@ namespace server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("server.Data.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Game");
 
                     b.Navigation("Player");
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("server.Data.TeamBox", b =>

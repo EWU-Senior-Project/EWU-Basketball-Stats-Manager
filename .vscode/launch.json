@@ -30,6 +30,19 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
+        },
+        {
+            "name": ".NET Core Test",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/server.tests/bin/Debug/net6.0/server.tests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/server.tests",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart"
         }
+        
     ]
 }

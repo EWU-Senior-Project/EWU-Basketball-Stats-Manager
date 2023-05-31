@@ -1,5 +1,9 @@
 FROM mcr.microsoft.com/devcontainers/dotnet:0-6.0
 
+RUN dotnet tool install --global dotnet-ef
+
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
 RUN curl -sL https://deb.nodesource.com/setup_16.x -o /tmp/nodesource_setup.sh && \
     bash /tmp/nodesource_setup.sh && \
     apt update && \

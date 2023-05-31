@@ -2,6 +2,7 @@ using server.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Microsoft.OpenApi.Models;
+using server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,10 @@ builder.Services.AddDbContext<AppDbContext>(
     e => e.UseNpgsql("Server=localhost;Database=statsdb;Port=5432;User Id=postgres")
 );
 
+
+//add services
+builder.Services.AddScoped<DbUpdateService>();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -24,6 +29,14 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 var app = builder.Build();
+
+//create database
+using(var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
+    DbUpdateService.SeedDb(context, "Content/team_box.csv", "Content/player_box.csv");
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -35,6 +48,8 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty;
     });
 }
+
+
 
 app.UseHttpsRedirection();
 
