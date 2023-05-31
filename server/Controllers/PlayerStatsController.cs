@@ -19,25 +19,8 @@ public class PlayerStatsController : ControllerBase
     /// </summary>
     /// <returns>List of players.</returns>
     [HttpGet("GetTopScorers")]
-    public IEnumerable<Player> GetTopScorers()
+    public IEnumerable<Player> GetTopScorers(int teamId)
     {
-        return _PlayerStatsService.GetTopScorersByTeamId(331);
-
-        // PlayerDto player = new PlayerDto();
-        // player.number = 2;
-        // player.name = "Leborn";
-        // player.pts = 10;
-        // player.fgm = 11.1;
-        // player.fga = 12.2;
-        // player.fgp = 99.9;
-
-        // var playerList = new List<PlayerDto>();
-        // playerList.Add(player);
-        // playerList.Add(player);
-        // playerList.Add(player);
-        // playerList.Add(player);
-        // playerList.Add(player);
-
-        // return playerList;
+        return _PlayerStatsService.GetTopScorersByTeamId(teamId);
     }
 }

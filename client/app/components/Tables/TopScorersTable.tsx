@@ -16,8 +16,8 @@ type IProps = {
 };
 
 type player = {
-  number: number;
-  name: string;
+  jersey: number;
+  displayName: string;
   pts: number;
   fgm: number;
   fga: number;
@@ -65,15 +65,15 @@ const TopScorersTable = ({ title }: IProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {players.map((player) => (
-              <TableRow key={player.number}>
-                <TableCell>{player.number}</TableCell>
-                <TableCell align="right">{player.name}</TableCell>
+            {players.map((player) => (
+              <TableRow key={player.jersey}>
+                <TableCell>{player.jersey}</TableCell>
+                <TableCell align="right">{player.displayName}</TableCell>
                 <TableCell align="right">{player.pts}</TableCell>
                 <TableCell align="right">{`${player.fgm}-${player.fga}`}</TableCell>
                 <TableCell align="right">{player.fgp}</TableCell>
               </TableRow>
-            ))} */}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
