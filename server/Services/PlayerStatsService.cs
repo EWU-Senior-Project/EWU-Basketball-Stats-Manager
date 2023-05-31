@@ -10,16 +10,41 @@ public class PlayerStatsService
     {
         _db = db;
     }
-
-    public IEnumerable<Player> GetTopScorersAsync(int teamId)
+    private class PlayerSeasonalAvgPoints
     {
-        return _db.Players.Where(player => player.TeamId == teamId).OrderBy(Player => Player.PlayerBoxes.Select(box => box.Points)).ToList();
+        public int playerId { get; set; }
+        public int seasonalAvgPoints { get; set; }
+    }
+    public IEnumerable<Player> GetTopScorersByTeamId(int teamId)
+    {
+        var playersByTeamId = _db.Players.Where(player => player.TeamId == teamId);
+        var playerList = playersByTeamId.ToArray();
+        var playersSeasonalAvgList = new List<PlayerSeasonalAvgPoints>();
+        foreach (Player player in playerList)
+        {
+            playersSeasonalAvgList.Add(GetSeasonalAveragePoints(player.PlayerId));
+        }
+        var queryableList = playersSeasonalAvgList.AsQueryable();
+        return GetPlayersByIds(queryableList.OrderBy(player => player.seasonalAvgPoints).Select(player => player.playerId).Take(5).ToList());
     }
 
-    // public Player GetSeasonalAveragePoints(int playerId)
-    // {
-    //     var totalPoints = _db.Players.Where(player => player.PlayerId == playerId).Select(player => player.PlayerBoxes.Select(box => box.Points));
-    //     var totalGames = _db.Players.Where(player => player.PlayerId == playerId).Select(player => player.PlayerBoxes.Select(box => box.Game)).Count();
-    //     var seasonAvg = totalPoints / totalPoints;
-    // }
+    private PlayerSeasonalAvgPoints GetSeasonalAveragePoints(int playerId)
+    {
+        var totalPoints = _db.Players.Where(player => player.PlayerId == playerId).Select(player => player.PlayerBoxes.Select(box => box.Points)).First().First();
+        var totalGames = _db.Players.Where(player => player.PlayerId == playerId).Select(player => player.PlayerBoxes.Select(box => box.Game)).Count();
+        var playerSeasonalAvgPoints = new PlayerSeasonalAvgPoints();
+        playerSeasonalAvgPoints.playerId = playerId;
+        playerSeasonalAvgPoints.seasonalAvgPoints = totalPoints / totalGames;
+        return playerSeasonalAvgPoints;
+    }
+
+    private List<Player> GetPlayersByIds(List<int> playerIds)
+    {
+        var players = new List<Player>();
+        foreach (int playerId in playerIds)
+        {
+            players.Add(_db.Players.Where(player => player.PlayerId == playerId).First());
+        }
+        return players;
+    }
 }
