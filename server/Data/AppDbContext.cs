@@ -14,6 +14,7 @@ namespace server.Data
         public DbSet<Player> Players { get; set; } = null!;
         public DbSet<PlayerBox> PlayerBoxes { get; set; } = null!;
         public DbSet<TeamBox> TeamBoxes { get; set; } = null!;
+        public DbSet<Season> Seasons { get; set; } = null!;
         //@TODO
         //public DbSet<PlayByPlay> PlayByPlays { get; set; } = null!;
 

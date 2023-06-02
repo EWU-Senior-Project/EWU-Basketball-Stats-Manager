@@ -1,3 +1,11 @@
+/*
+It will make sense to break these seed methods out into their own services
+as we build out services for getting and updating each entity
+*/
+
+
+
+
 using server.Data;
 using server.Data.Mappings;
 using CsvHelper;
@@ -5,7 +13,6 @@ using CsvHelper.Configuration;
 using System.Globalization;
 
 namespace server.Services;
-
 public class DbUpdateService
 {
     private readonly AppDbContext _context;
@@ -93,8 +100,8 @@ public class DbUpdateService
                 .Select(g => new Game
                 {
                    GameId = g.Key,
-                    Season = g.First().Season,
-                    SeasonType = g.First().SeasonType,
+                    Season = context.Seasons.
+                        FirstOrDefault(s => s.StartDate <= g.First().GameDateTime && g.First().GameDateTime <= s.EndDate)!,
                     GameDateTime = g.First().GameDateTime,
                     HomeTeamId = g.Single(r => r.TeamHomeAway == "home").TeamId,
                     AwayTeamId = g.Single(r => r.TeamHomeAway == "away").TeamId,
@@ -126,6 +133,11 @@ public class DbUpdateService
 
             foreach (var record in records)
             {
+
+                var Season = context.Seasons
+                .FirstOrDefault(s => s.StartDate <= record.GameDateTime && record.GameDateTime <= s.EndDate);
+
+
                 if (gamesInProgress.TryGetValue(record.Id, out Game? gameInProgress))
                 {
                     // second row of a game.
@@ -155,8 +167,7 @@ public class DbUpdateService
                     Game newGame = new Game
                     {
                         GameId = record.Id,
-                        Season = record.Season,
-                        SeasonType = record.SeasonType,
+                        Season = Season!,
                         GameDateTime = record.GameDateTime
                     };
                     if (record.TeamHomeAway == "away")
