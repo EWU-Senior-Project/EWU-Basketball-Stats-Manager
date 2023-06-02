@@ -34,8 +34,9 @@ var app = builder.Build();
 using(var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var dbUpdateService = scope.ServiceProvider.GetRequiredService<DbUpdateService>();
     context.Database.Migrate();
-    DbUpdateService.SeedDb(context, "Content/team_box.csv", "Content/player_box.csv");
+    dbUpdateService.SeedDb("Content/team_box.csv", "Content/player_box.csv");
 }
 
 // Configure the HTTP request pipeline.

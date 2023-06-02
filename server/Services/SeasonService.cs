@@ -11,7 +11,7 @@ public class SeasonService
         _context = context; 
     }
 
-    public static void SeedSeasons(AppDbContext context)
+    public void SeedSeasons()
     {
         var startYear = 2015;
         var endYear = 2030;
@@ -22,7 +22,7 @@ public class SeasonService
                     EndDate = new DateTime(year+1, 4, 30).ToUniversalTime(),
                     SeasonString = $"{year}-{year+1}"
             };
-            context.Seasons.Add(season);
+            _context.Seasons.Add(season);
         }
     } 
 
@@ -46,7 +46,7 @@ public class SeasonService
 
         context.SaveChanges();
     }
-    
+
     public static Season GetSeasonFromGame(AppDbContext context, Game game)
     {
         return context.Seasons.

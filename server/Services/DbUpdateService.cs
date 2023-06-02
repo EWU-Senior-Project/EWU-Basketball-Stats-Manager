@@ -23,17 +23,18 @@ public class DbUpdateService
     }
 
     
-    public static void SeedDb(AppDbContext context, string teamPath, string playerPath)
+    public void SeedDb( string teamPath, string playerPath)
     {
-        SeasonService.SeedSeasons(context);
-        SeedTeams(context, teamPath);
-        SeedPlayers(context, playerPath);
-        SeedGamesFast(context, teamPath);
-        SeedTeamBoxScores(context, teamPath);
-        SeedPlayerBoxScores(context, playerPath);
+        var seasonService = new SeasonService(_context);
+        seasonService.SeedSeasons();
+        SeedTeams( teamPath);
+        SeedPlayers(playerPath);
+        SeedGamesFast(teamPath);
+        SeedTeamBoxScores(teamPath);
+        SeedPlayerBoxScores(playerPath);
     }
 
-    public static void SeedTeams (AppDbContext context, string path)
+    public void SeedTeams (string path)
     {
         using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -47,16 +48,16 @@ public class DbUpdateService
 
             foreach (var row in filteredRecords)
             {
-                if(!context.Teams.Any(team => team.TeamId == row.TeamId))
+                if(!_context.Teams.Any(team => team.TeamId == row.TeamId))
                 {
-                    context.Teams.Add(row);
+                    _context.Teams.Add(row);
                 }
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 
-    public static void SeedPlayers (AppDbContext context, string path)
+    public void SeedPlayers (string path)
     {
         using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -70,23 +71,23 @@ public class DbUpdateService
             int playersWithoutTeams = 0;
             foreach (var row in filteredRecords)
             {
-                if(!context.Players.Any(player => player.PlayerId == row.PlayerId))
+                if(!_context.Players.Any(player => player.PlayerId == row.PlayerId))
                 {
                     
-                    if(!context.Teams.Any(team => team.TeamId == row.TeamId))
+                    if(!_context.Teams.Any(team => team.TeamId == row.TeamId))
                     {
                         playersWithoutTeams ++;
                         Console.WriteLine("entries without matching teamID: " + playersWithoutTeams);
                     }
-                    context.Players.Add(row);
+                    _context.Players.Add(row);
                 }
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
     [Obsolete("Use SeedGamesFast()")]
     //keeping as a reference for readability
-    public static void SeedGames (AppDbContext context, string path)
+    public void SeedGames (string path)
     {
         using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -101,7 +102,7 @@ public class DbUpdateService
                 .Select(g => new Game
                 {
                     GameId = g.Key,
-                    SeasonId = context.Seasons.
+                    SeasonId = _context.Seasons.
                         FirstOrDefault(s => s.StartDate <= g.First().GameDateTime && g.First().GameDateTime <= s.EndDate)!.SeasonId,
                     GameDateTime = g.First().GameDateTime,
                     HomeTeamId = g.Single(r => r.TeamHomeAway == "home").TeamId,
@@ -112,15 +113,15 @@ public class DbUpdateService
 
             foreach (var game in games)
             {
-                if(!context.Games.Any(g => g.GameId == game.GameId))
+                if(!_context.Games.Any(g => g.GameId == game.GameId))
                 {
-                    context.Games.Add(game);
+                    _context.Games.Add(game);
                 }
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
-    public static void SeedGamesFast(AppDbContext context, string path)
+    public void SeedGamesFast(string path)
     {
         using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -135,7 +136,7 @@ public class DbUpdateService
             foreach (var record in records)
             {
 
-                var Season = context.Seasons
+                var Season = _context.Seasons
                 .FirstOrDefault(s => s.StartDate <= record.GameDateTime && record.GameDateTime <= s.EndDate);
 
 
@@ -154,9 +155,9 @@ public class DbUpdateService
                     }
 
                     // if true then entry is complete and should be added to context
-                    if (!context.Games.Any(game => game.GameId == gameInProgress.GameId))
+                    if (!_context.Games.Any(game => game.GameId == gameInProgress.GameId))
                     {
-                        context.Games.Add(gameInProgress);
+                        _context.Games.Add(gameInProgress);
                     }
                     //no longer in progress so remove from dictionary
                     gamesInProgress.Remove(record.Id);
@@ -184,11 +185,11 @@ public class DbUpdateService
                     gamesInProgress[record.Id] = newGame;
                 }
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 
-    public static void SeedTeamBoxScores (AppDbContext context, string path)
+    public void SeedTeamBoxScores (string path)
     {
         using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -201,7 +202,7 @@ public class DbUpdateService
                                                 .ToList();
             //loading db to check against
             var existingRecords = new HashSet<(int, int)>(
-                context.TeamBoxes.Select(box => new {box.GameId, box.TeamId})
+                _context.TeamBoxes.Select(box => new {box.GameId, box.TeamId})
                                     .ToList()
                                     .Select(x => (x.GameId, x.TeamId))
             );
@@ -210,14 +211,14 @@ public class DbUpdateService
             {
                 if(!existingRecords.Contains((row.GameId, row.TeamId)))
                 {
-                    context.TeamBoxes.Add(row);
+                    _context.TeamBoxes.Add(row);
                 }
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 
-    public static void SeedPlayerBoxScores (AppDbContext context, string path)
+    public void SeedPlayerBoxScores (string path)
     {
         using (var reader = new StreamReader(path))
         using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -231,7 +232,7 @@ public class DbUpdateService
                                                 .ToList();
             //loading db to check against
             var existingRecords = new HashSet<(int, int)>(
-                context.PlayerBoxes.Select(box => new {box.GameId, box.PlayerId})
+                _context.PlayerBoxes.Select(box => new {box.GameId, box.PlayerId})
                                     .ToList()
                                     .Select(x => (x.GameId, x.PlayerId))
             );
@@ -241,10 +242,10 @@ public class DbUpdateService
                 //making sure we are not adding twice
                 if(!existingRecords.Contains((row.GameId, row.PlayerId)))
                 {
-                    context.PlayerBoxes.Add(row);
+                    _context.PlayerBoxes.Add(row);
                 }
             }
-            context.SaveChanges();
+            _context.SaveChanges();
         }
     }
 
