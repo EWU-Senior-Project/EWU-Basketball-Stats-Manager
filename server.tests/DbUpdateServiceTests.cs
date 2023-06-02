@@ -2,13 +2,13 @@ namespace server.tests;
 
 using server.Services;
 using server.Data;
-public class UserServiceTests : IClassFixture<TestFixture>
+public class DbUpdateServiceTests : IClassFixture<TestFixture>
 {
     private readonly AppDbContext _context;
     private readonly string _teamPath = "../../../Content/team_box.csv";
     private readonly string _playerPath = "../../../Content/player_box.csv";
 
-    public UserServiceTests(TestFixture fixture)
+    public DbUpdateServiceTests(TestFixture fixture)
     {
         _context = fixture.DbContext;
     }

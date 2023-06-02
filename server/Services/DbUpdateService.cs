@@ -25,6 +25,7 @@ public class DbUpdateService
     
     public static void SeedDb(AppDbContext context, string teamPath, string playerPath)
     {
+        SeasonService.SeedSeasons(context);
         SeedTeams(context, teamPath);
         SeedPlayers(context, playerPath);
         SeedGamesFast(context, teamPath);
@@ -99,9 +100,9 @@ public class DbUpdateService
                 .GroupBy(g => g.Id)
                 .Select(g => new Game
                 {
-                   GameId = g.Key,
-                    Season = context.Seasons.
-                        FirstOrDefault(s => s.StartDate <= g.First().GameDateTime && g.First().GameDateTime <= s.EndDate)!,
+                    GameId = g.Key,
+                    SeasonId = context.Seasons.
+                        FirstOrDefault(s => s.StartDate <= g.First().GameDateTime && g.First().GameDateTime <= s.EndDate)!.SeasonId,
                     GameDateTime = g.First().GameDateTime,
                     HomeTeamId = g.Single(r => r.TeamHomeAway == "home").TeamId,
                     AwayTeamId = g.Single(r => r.TeamHomeAway == "away").TeamId,
@@ -167,7 +168,7 @@ public class DbUpdateService
                     Game newGame = new Game
                     {
                         GameId = record.Id,
-                        Season = Season!,
+                        SeasonId = Season!.SeasonId,
                         GameDateTime = record.GameDateTime
                     };
                     if (record.TeamHomeAway == "away")
