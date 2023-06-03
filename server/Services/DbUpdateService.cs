@@ -26,12 +26,15 @@ public class DbUpdateService
     public void SeedDb( string teamPath, string playerPath)
     {
         var seasonService = new SeasonService(_context);
+        var seasonStatsService = new SeasonStatsService(_context);
         seasonService.SeedSeasons();
         SeedTeams( teamPath);
         SeedPlayers(playerPath);
         SeedGamesFast(teamPath);
         SeedTeamBoxScores(teamPath);
         SeedPlayerBoxScores(playerPath);
+        seasonStatsService.UpdatePlayerSeasonStats();
+        
     }
 
     public void SeedTeams (string path)

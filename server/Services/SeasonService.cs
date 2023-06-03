@@ -1,4 +1,5 @@
 using server.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace server.Services;
 
@@ -22,17 +23,22 @@ public class SeasonService
                     EndDate = new DateTime(year+1, 4, 30).ToUniversalTime(),
                     SeasonString = $"{year}-{year+1}"
             };
-            _context.Seasons.Add(season);
+            if(!_context.Seasons.Any(s=>s.StartDate == season.StartDate))
+            {
+                _context.Seasons.Add(season);
+                _context.SaveChanges();
+            }
+            
         }
     } 
 
-    public static void UpdateExistingRecordsSeasons(AppDbContext context)
+    public void UpdateExistingRecordsSeasons()
     {
-        var games = context.Games.ToList();
+        var games = _context.Games.ToList();
 
         foreach(var game in games)
         {
-            var season = GetSeasonFromGame(context, game);
+            var season = GetSeasonFromGame(_context, game);
 
             if (season != null)
             {
@@ -44,7 +50,15 @@ public class SeasonService
             }
         }
 
-        context.SaveChanges();
+        _context.SaveChanges();
+
+        var playerBoxes = _context.PlayerBoxes.Include(pb => pb.Game).ToList();
+
+        foreach(var pb in playerBoxes)
+        {
+            pb.SeasonId = pb.Game.SeasonId;
+        }
+        _context.SaveChanges();
     }
 
     public static Season GetSeasonFromGame(AppDbContext context, Game game)
