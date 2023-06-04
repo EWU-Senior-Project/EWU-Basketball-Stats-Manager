@@ -17,6 +17,7 @@ namespace server.Data
 
         public ICollection<Game> HomeGames { get; set; } = null!;
         public ICollection<Game> AwayGames { get; set; } = null!;
+        public ICollection<Player> Players {get; set; } = null!;
         //public ICollection<PlayerBox> PlayerBoxes { get; set; } = null!;
         public ICollection<TeamBox> TeamBoxes { get; set; } = null!;
     }

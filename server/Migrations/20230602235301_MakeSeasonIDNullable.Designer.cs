@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using server.Data;
@@ -11,9 +12,11 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230602235301_MakeSeasonIDNullable")]
+    partial class MakeSeasonIDNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,6 +241,9 @@ namespace server.Migrations
                     b.Property<int>("OffensiveRebounds")
                         .HasColumnType("integer");
 
+                    b.Property<int>("PlayerBoxId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("PlayerId")
                         .HasColumnType("integer");
 
@@ -247,7 +253,7 @@ namespace server.Migrations
                     b.Property<int>("Rebounds")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("SeasonId")
+                    b.Property<int>("SeasonId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Steals")
@@ -268,7 +274,7 @@ namespace server.Migrations
 
                     b.HasIndex("SeasonId");
 
-                    b.ToTable("PlayerSeasonStats");
+                    b.ToTable("PlayerSeasonStat");
                 });
 
             modelBuilder.Entity("server.Data.Season", b =>
@@ -516,7 +522,9 @@ namespace server.Migrations
 
                     b.HasOne("server.Data.Season", "season")
                         .WithMany()
-                        .HasForeignKey("SeasonId");
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Player");
 

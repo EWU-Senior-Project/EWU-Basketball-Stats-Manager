@@ -3,8 +3,6 @@ namespace server.Data
     public class PlayerBox
     {
         public int PlayerBoxId { get; set; }
-        public int Season { get; set; }
-        public int SeasonType { get; set; }
         public int Minutes { get; set; }
         public int FieldGoalsMade { get; set; }
         public int FieldGoalsAttempted { get; set; }
@@ -25,9 +23,11 @@ namespace server.Data
         public bool Ejected { get; set; }
         public bool DidNotPlay { get; set; }
         public bool IsActive { get; set; }
-   
+        public bool isAggregated { get; set; }
         public virtual Game Game { get; set; } = null!;
         public int GameId { get; set; }
+        public int? SeasonId { get; set;}
+        public virtual Season Season { get; set; } = null!; 
         public virtual Player Player { get; set; } = null!;
         public int PlayerId { get; set; }
         public virtual Team Team { get; set; } = null!;

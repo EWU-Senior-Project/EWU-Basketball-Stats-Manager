@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using server.Data;
@@ -11,9 +12,11 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230602222215_SeasonsTableAndRelations")]
+    partial class SeasonsTableAndRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,7 +163,10 @@ namespace server.Migrations
                     b.Property<int>("Rebounds")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("SeasonId")
+                    b.Property<int>("Season")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SeasonType")
                         .HasColumnType("integer");
 
                     b.Property<bool>("Starter")
@@ -181,94 +187,15 @@ namespace server.Migrations
                     b.Property<int>("Turnovers")
                         .HasColumnType("integer");
 
-                    b.Property<bool>("isAggregated")
-                        .HasColumnType("boolean");
-
                     b.HasKey("PlayerBoxId");
 
                     b.HasIndex("GameId");
 
                     b.HasIndex("PlayerId");
 
-                    b.HasIndex("SeasonId");
-
                     b.HasIndex("TeamId");
 
                     b.ToTable("PlayerBoxes");
-                });
-
-            modelBuilder.Entity("server.Data.PlayerSeasonStat", b =>
-                {
-                    b.Property<int>("PlayerSeasonStatId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlayerSeasonStatId"));
-
-                    b.Property<int>("Assists")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Blocks")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DefensiveRebounds")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FieldGoalsAttempted")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FieldGoalsMade")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Fouls")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FreeThrowsAttempted")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FreeThrowsMade")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("GamesPlayed")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Minutes")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OffensiveRebounds")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Rebounds")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("SeasonId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Steals")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ThreePointFieldGoalsAttempted")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ThreePointFieldGoalsMade")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Turnovers")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PlayerSeasonStatId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.HasIndex("SeasonId");
-
-                    b.ToTable("PlayerSeasonStats");
                 });
 
             modelBuilder.Entity("server.Data.Season", b =>
@@ -487,10 +414,6 @@ namespace server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("server.Data.Season", "Season")
-                        .WithMany()
-                        .HasForeignKey("SeasonId");
-
                     b.HasOne("server.Data.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId")
@@ -501,26 +424,7 @@ namespace server.Migrations
 
                     b.Navigation("Player");
 
-                    b.Navigation("Season");
-
                     b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("server.Data.PlayerSeasonStat", b =>
-                {
-                    b.HasOne("server.Data.Player", "Player")
-                        .WithMany("PlayerSeasonStats")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("server.Data.Season", "season")
-                        .WithMany()
-                        .HasForeignKey("SeasonId");
-
-                    b.Navigation("Player");
-
-                    b.Navigation("season");
                 });
 
             modelBuilder.Entity("server.Data.TeamBox", b =>
@@ -552,8 +456,6 @@ namespace server.Migrations
             modelBuilder.Entity("server.Data.Player", b =>
                 {
                     b.Navigation("PlayerBoxes");
-
-                    b.Navigation("PlayerSeasonStats");
                 });
 
             modelBuilder.Entity("server.Data.Season", b =>
