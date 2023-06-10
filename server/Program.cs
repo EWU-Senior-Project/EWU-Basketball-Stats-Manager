@@ -21,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(
 //add services
 builder.Services.AddScoped<DbUpdateService>();
 builder.Services.AddScoped<PlayerStatsService>();
+builder.Services.AddScoped<SeasonService>();
+builder.Services.AddScoped<SeasonStatsService>();
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -35,8 +37,17 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var dbUpdateService = scope.ServiceProvider.GetRequiredService<DbUpdateService>();
+    var seasonService = scope.ServiceProvider.GetRequiredService<SeasonService>();
+    var seasonStatsService = scope.ServiceProvider.GetRequiredService<SeasonStatsService>();
     context.Database.Migrate();
-    DbUpdateService.SeedDb(context, "Content/team_box.csv", "Content/player_box.csv");
+    //next two lines are to fix the current db schema
+    //if your local volume does not have any data in it
+    //then pls delete these lines
+    seasonService.SeedSeasons();
+    seasonService.UpdateExistingRecordsSeasons();
+    seasonStatsService.UpdatePlayerSeasonStats();
+    dbUpdateService.SeedDb("Content/team_box.csv", "Content/player_box.csv");
 }
 
 // Configure the HTTP request pipeline.

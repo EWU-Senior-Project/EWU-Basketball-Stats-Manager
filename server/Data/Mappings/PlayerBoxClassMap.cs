@@ -9,8 +9,6 @@ public sealed class PlayerBoxClassMap : ClassMap<PlayerBox>
     {
         Map(m => m.GameId).Name("game_id");
         Map(m => m.TeamId).Name("team_id");
-        Map(m => m.Season).Name("season");
-        Map(m => m.SeasonType).Name("season_type");
         Map(m => m.PlayerId).Name("athlete_id");
         Map(m => m.Minutes).Name("minutes").TypeConverter<CustomInt32Converter>();
         Map(m => m.FieldGoalsMade).Name("field_goals_made").TypeConverter<CustomInt32Converter>();
