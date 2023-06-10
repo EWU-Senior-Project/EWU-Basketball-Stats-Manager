@@ -54,11 +54,11 @@
 - ### From the Project's Root Directory run the commands: `cd client` then `yarn dev`. <small>This will start up the frontend of the program</small>
   - #### You can access the live sever by pressing `ctrl + click` on the `http://localhost:3000` link in the terminal
 
-##Testing
+## Testing
 
-- ## Change working directory to server.tests and from the commmand line run `dotnet test`
+- ### Change working directory to server.tests and from the commmand line run `dotnet test`
 
-- ## To run a single test or debug a single test navigate to your class file and either select `run test` or `debug test` above the method header
+- ### To run a single test or debug a single test navigate to your class file and either select `run test` or `debug test` above the method header
 
 # Tech Stack
 
