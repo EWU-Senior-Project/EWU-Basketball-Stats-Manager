@@ -15,6 +15,7 @@ public class PlayerStatsService
         public int playerId { get; set; }
         public int seasonalAvgPoints { get; set; }
     }
+
     public IEnumerable<Player> GetTopScorersByTeamId(int teamId)
     {
         var playersByTeamId = _db.Players.Where(player => player.TeamId == teamId);
