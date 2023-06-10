@@ -28,7 +28,7 @@ const ScoutingReportEditor = ({ items }: IProps) => {
             flexDirection: 'row',
             maxWidth: '1000px',
             flexWrap: 'wrap',
-            gap: '1em',
+            gap: '.5em',
           }}
         >
           {items}
