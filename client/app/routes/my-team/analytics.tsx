@@ -23,7 +23,8 @@ import TopReboundersTable from '~/components/Tables/TopReboundersTable';
 import { GetTopScorers } from '~/api/teamStatsApi.server';
 
 export const loader = () => {
-  const topScorers = GetTopScorers();
+  // manually enter EWU's team ID
+  const topScorers = GetTopScorers(331);
   return topScorers;
 };
 

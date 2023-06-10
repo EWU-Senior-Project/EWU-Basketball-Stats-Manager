@@ -20,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(
 
 //add services
 builder.Services.AddScoped<DbUpdateService>();
+builder.Services.AddScoped<PlayerStatsService>();
 builder.Services.AddScoped<SeasonService>();
 builder.Services.AddScoped<SeasonStatsService>();
 
@@ -33,7 +34,7 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 //create database
-using(var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var dbUpdateService = scope.ServiceProvider.GetRequiredService<DbUpdateService>();

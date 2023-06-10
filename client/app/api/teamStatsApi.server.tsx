@@ -1,6 +1,6 @@
-export async function GetTopScorers() {
+export async function GetTopScorers(teamId: number) {
   const response = await fetch(
-    'https://localhost:8080/PlayerStats/GetTopScorers',
+    `https://localhost:8080/PlayerStats/GetTopScorers?teamId=${teamId}`,
     {
       method: 'GET',
     }
