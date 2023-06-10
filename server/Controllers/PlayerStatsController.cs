@@ -19,7 +19,7 @@ public class PlayerStatsController : ControllerBase
     /// </summary>
     /// <returns>List of players.</returns>
     [HttpGet("GetTopScorers")]
-    public IEnumerable<Player> GetTopScorers(int teamId)
+    public IEnumerable<PlayerDto> GetTopScorers(int teamId)
     {
         return _PlayerStatsService.GetTopScorersByTeamId(teamId);
     }

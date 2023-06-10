@@ -16,36 +16,32 @@ public class PlayerStatsService
         public int seasonalAvgPoints { get; set; }
     }
 
-    public IEnumerable<Player> GetTopScorersByTeamId(int teamId)
+    public IEnumerable<PlayerDto> GetTopScorersByTeamId(int teamId)
     {
-        var playersByTeamId = _db.Players.Where(player => player.TeamId == teamId);
-        var playerList = playersByTeamId.ToArray();
-        var playersSeasonalAvgList = new List<PlayerSeasonalAvgPoints>();
-        foreach (Player player in playerList)
-        {
-            playersSeasonalAvgList.Add(GetSeasonalAveragePoints(player.PlayerId));
-        }
-        var queryableList = playersSeasonalAvgList.AsQueryable();
-        return GetPlayersByIds(queryableList.OrderBy(player => player.seasonalAvgPoints).Select(player => player.playerId).Take(5).ToList());
-    }
+        var team = _db.Teams.Where(team => team.TeamId == teamId);
 
-    private PlayerSeasonalAvgPoints GetSeasonalAveragePoints(int playerId)
-    {
-        var totalPoints = _db.Players.Where(player => player.PlayerId == playerId).Select(player => player.PlayerBoxes.Select(box => box.Points)).First().First();
-        var totalGames = _db.Players.Where(player => player.PlayerId == playerId).Select(player => player.PlayerBoxes.Select(box => box.Game)).Count();
-        var playerSeasonalAvgPoints = new PlayerSeasonalAvgPoints();
-        playerSeasonalAvgPoints.playerId = playerId;
-        playerSeasonalAvgPoints.seasonalAvgPoints = totalPoints / totalGames;
-        return playerSeasonalAvgPoints;
-    }
+        var players = team.Select(team => team.Players).ToList();
 
-    private List<Player> GetPlayersByIds(List<int> playerIds)
-    {
-        var players = new List<Player>();
-        foreach (int playerId in playerIds)
+        var topScorers = new List<PlayerDto>();
+        foreach (Player player in players)
         {
-            players.Add(_db.Players.Where(player => player.PlayerId == playerId).First());
+            IQueryable<Player> queryablePlayer = (IQueryable<Player>)player;
+            PlayerDto topScorer = new PlayerDto();
+
+            topScorer.number = Int32.Parse(queryablePlayer.Select(p => p.Jersey).First());
+            topScorer.name = queryablePlayer.Select(p => p.DisplayName).First();
+            topScorer.pts = queryablePlayer.Select(p => p.PlayerSeasonStats.Select(stat => stat.Points).First()).First();
+            topScorer.fga = queryablePlayer.Select(p => p.PlayerSeasonStats.Select(stat => stat.FieldGoalsAttempted).First()).First();
+            topScorer.fgm = queryablePlayer.Select(p => p.PlayerSeasonStats.Select(stat => stat.FieldGoalsMade).First()).First();
+            topScorer.fgp = topScorer.fgm / topScorer.fga;
+
+            // topScorer.number = 2;
+            // topScorer.name = "hello";
+            // topScorer.pts = 2;
+            // topScorer.fga = 2;
+            // topScorer.fgm = 2;
+            // topScorer.fgp = 2;
         }
-        return players;
+        return topScorers;
     }
 }
