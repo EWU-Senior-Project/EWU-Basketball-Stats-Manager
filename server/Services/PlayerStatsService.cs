@@ -18,30 +18,32 @@ public class PlayerStatsService
 
     public IEnumerable<PlayerDto> GetTopScorersByTeamId(int teamId)
     {
-        var team = _db.Teams.Where(team => team.TeamId == teamId);
+        var query = from p in _db.Players join b in _db.PlayerSeasonStats on p.PlayerId equals b.PlayerId into grouping from d in grouping.DefaultIfEmpty() orderby d.Points descending select new { d, p };
+        var result = query.Where(e => e.p.TeamId == teamId).Select(e => new { e.p.Jersey, e.p.DisplayName, e.d.Points, e.d.FieldGoalsMade, e.d.FieldGoalsAttempted, e.d.GamesPlayed }).Take(5).ToList();
 
-        var players = team.Select(team => team.Players).ToList();
+        var playerList = new List<PlayerDto>();
 
-        var topScorers = new List<PlayerDto>();
-        foreach (Player player in players)
+        foreach (var item in result)
         {
-            IQueryable<Player> queryablePlayer = (IQueryable<Player>)player;
-            PlayerDto topScorer = new PlayerDto();
+            var player = new PlayerDto();
 
-            topScorer.number = Int32.Parse(queryablePlayer.Select(p => p.Jersey).First());
-            topScorer.name = queryablePlayer.Select(p => p.DisplayName).First();
-            topScorer.pts = queryablePlayer.Select(p => p.PlayerSeasonStats.Select(stat => stat.Points).First()).First();
-            topScorer.fga = queryablePlayer.Select(p => p.PlayerSeasonStats.Select(stat => stat.FieldGoalsAttempted).First()).First();
-            topScorer.fgm = queryablePlayer.Select(p => p.PlayerSeasonStats.Select(stat => stat.FieldGoalsMade).First()).First();
-            topScorer.fgp = topScorer.fgm / topScorer.fga;
+            if (item.GamesPlayed != 0)
+            {
+                player.fgm = item.FieldGoalsMade / item.GamesPlayed;
+                player.fga = item.FieldGoalsAttempted / item.GamesPlayed;
+                player.pts = item.Points / item.GamesPlayed;
+            }
+            player.number = Int32.Parse(item.Jersey);
+            player.name = item.DisplayName;
 
-            // topScorer.number = 2;
-            // topScorer.name = "hello";
-            // topScorer.pts = 2;
-            // topScorer.fga = 2;
-            // topScorer.fgm = 2;
-            // topScorer.fgp = 2;
+            if (item.FieldGoalsAttempted != 0)
+            {
+                player.fgp = Math.Round(((double)item.FieldGoalsMade / (double)item.FieldGoalsAttempted), 2);
+            }
+
+            playerList.Add(player);
         }
-        return topScorers;
+
+        return playerList;
     }
 }
